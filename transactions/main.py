@@ -1,1 +1,6 @@
-print("hellow world")
+import requests
+
+response = requests.get("http://api.open-notify.org/astros.json")
+
+def main():
+	print(response.json())
