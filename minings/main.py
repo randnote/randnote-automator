@@ -10,22 +10,24 @@ MAX_NONCE = 100000000000
 
 async def requestBlockAndMine():
 	"""Gets the block from the database and calls the mining function"""
-	mine = await requests.get('http://localhost:8033/mine/romeo/0')
-	print (json.dumps(mine.json(), indent=2)) # incase I wanna print it
+	mine =  requests.get('http://localhost:8033/mine/romeo/0')
+	# print (json.dumps(mine.json(), indent=2)) # incase I wanna print it
 
 	jsonObject = mine.json()
 	blockTimestamp = jsonObject['block']['timestamp']
 	blockTransactions = jsonObject['block']['transactions']
 	difficulty = jsonObject['difficulty']
 	previousHash = jsonObject['block']['previousHash']
-	mine(blockTimestamp, blockTransactions, previousHash, difficulty)
+	mineB(blockTimestamp, blockTransactions, previousHash, difficulty)
 
 def SHA256(text):
     return sha256(text.encode("ascii")).hexdigest()
 
-def mine(timestamp, transactions, previous_hash, prefix_zeros):
+def mineB(timestamp, transactions, previous_hash, prefix_zeros):
 	""" Mining function that solves the puzzle and sends data to the sending function"""
-	prefix_str = '0'*prefix_zeros
+	# prefix_str = '0'*prefix_zeros
+	print("called mine function")
+	return 10
 	# for nonce in range(MAX_NONCE):
 	# 	text = timestamp + transactions + previous_hash + str(nonce)
 	# 	new_hash = SHA256(text)
@@ -36,7 +38,8 @@ def mine(timestamp, transactions, previous_hash, prefix_zeros):
 
 
 
-requestBlockAndMine()
+asyncio.run(requestBlockAndMine())
+# requestBlockAndMine()
 
 def main():
 	print("Main function of the mining section")
