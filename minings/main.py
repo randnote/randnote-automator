@@ -5,7 +5,7 @@ import json
 import asyncio
 
 from hashlib import sha256
-MAX_NONCE = 100000000000
+MAX_NONCE = 1000000
 
 
 async def requestBlockAndMine():
@@ -20,21 +20,25 @@ async def requestBlockAndMine():
 	previousHash = jsonObject['block']['previousHash']
 	mineB(blockTimestamp, blockTransactions, previousHash, difficulty)
 
+
 def SHA256(text):
     return sha256(text.encode("ascii")).hexdigest()
 
 def mineB(timestamp, transactions, previous_hash, prefix_zeros):
 	""" Mining function that solves the puzzle and sends data to the sending function"""
-	# prefix_str = '0'*prefix_zeros
-	print("called mine function")
-	return 10
-	# for nonce in range(MAX_NONCE):
-	# 	text = timestamp + transactions + previous_hash + str(nonce)
-	# 	new_hash = SHA256(text)
-	# 	if new_hash.startswith(prefix_str):
-	# 		print(f"Yay! Successfully mined bitcoins with nonce value:{nonce}")
-	# 		return new_hash
-	# 	raise BaseException(f"Couldn't find correct has after trying {MAX_NONCE} times")
+	prefix_str = '0'*prefix_zeros
+	new_transactions = json.dumps(transactions, separators=(',', ':'))
+
+	for nonce in range(MAX_NONCE):
+		text = timestamp +  previous_hash + new_transactions+ str(nonce)
+		new_hash = SHA256(text)
+		# print(new_hash)
+		if new_hash.startswith(prefix_str):
+			print(f"Yay! Successfully mined bitcoins with nonce value:{nonce}")
+			return new_hash
+		# raise BaseException(f"Couldn't find the correct solution after trying {MAX_NONCE} times")
+	print("Couldn't find solution")
+	exit()
 
 
 
