@@ -1,5 +1,3 @@
-# lets try to calculate a hash:
-
 import requests
 import json
 import asyncio
