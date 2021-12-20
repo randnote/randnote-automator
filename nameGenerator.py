@@ -57,13 +57,10 @@ def storeInCSV(item):
 
 def storePeopleInDatabase():
 	mydb = connectToDB()
-
-	# mydb = mysql.connector.connect(
-	#   host="localhost",
-	#   user="root",
-	#   password="5308danielromeo"
-	# )
 	mycursor = mydb.cursor()
+
+	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
+	
 
 	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
 	val = ("John", "Highway", "password", "main@gmail.com", "1")
