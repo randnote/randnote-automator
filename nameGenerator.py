@@ -1,6 +1,10 @@
 # This is a script that generates users(with thier details) and stores them in a .txt file
 import names
 import csv
+import mysql.connector
+
+
+from database.config import main as connectToDB
 
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
@@ -51,7 +55,25 @@ def storeInCSV(item):
 	    writer = csv.writer(f)
 	    writer.writerow(item)
 
+def storePeopleInDatabase():
+	mydb = connectToDB()
+
+	# mydb = mysql.connector.connect(
+	#   host="localhost",
+	#   user="root",
+	#   password="5308danielromeo"
+	# )
+	mycursor = mydb.cursor()
+
+	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
+	val = ("John", "Highway", "password", "main@gmail.com", "1")
+	mycursor.execute(sql, val)
+
+	mydb.commit()
+	print(mycursor.rowcount, "record inserted.")
 
 
-generatePeople()
-# storeInCSV(['daniel', 'mamphekgo']);
+
+storePeopleInDatabase()
+# generatePeople()
+
