@@ -54,22 +54,22 @@ def storeInCSV(item):
 	    writer = csv.writer(f)
 	    writer.writerow(item)
 
-def storePeopleInDatabase():
-	mydb = connectToDB()
-	mycursor = mydb.cursor()
+# def storePeopleInDatabase():
+# 	mydb = connectToDB()
+# 	mycursor = mydb.cursor()
 
-	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
+# 	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
 	
 
-	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
-	val = ("John", "Highway", "password", "main@gmail.com", "1")
-	mycursor.execute(sql, val)
+# 	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
+# 	val = ("John", "Highway", "password", "main@gmail.com", "1")
+# 	mycursor.execute(sql, val)
 
-	mydb.commit()
-	print(mycursor.rowcount, "record inserted.")
+# 	mydb.commit()
+# 	print(mycursor.rowcount, "record inserted.")
 
 
 
-storePeopleInDatabase()
+# storePeopleInDatabase()
 # generatePeople()
 
