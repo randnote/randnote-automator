@@ -23,7 +23,6 @@ def generatePeople():
 		firstname = names.get_first_name()
 		lastname = names.get_last_name()
 		fullname = firstname+lastname
-		email = fullname+'@gmail.com'
 		
 		key = RSA.generate(2048)
 		public_key = key.publickey().exportKey("PEM")
