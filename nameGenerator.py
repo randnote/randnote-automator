@@ -4,7 +4,7 @@ import csv
 import mysql.connector
 
 
-from database.config import main as connectToDB
+# from database.config import main as connectToDB
 
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
@@ -38,7 +38,7 @@ def generatePeople():
 			"publicKey": public_key,
 			"privateKey": private_key
 		}	
-		# print(person, end='\n')
+		print(person, end='\n')
 		personDictionary = [person["firstname"], person["lastname"], person["email"], person["password"], person["verifiedemail"], person["publicKey"], person["privateKey"]]
 		storeInCSV(personDictionary)
 
@@ -58,7 +58,7 @@ def storeInCSV(item):
 # 	mydb = connectToDB()
 # 	mycursor = mydb.cursor()
 
-# 	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
+	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
 	
 
 # 	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
@@ -71,5 +71,5 @@ def storeInCSV(item):
 
 
 # storePeopleInDatabase()
-# generatePeople()
+generatePeople()
 
