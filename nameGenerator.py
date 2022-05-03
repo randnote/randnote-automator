@@ -28,7 +28,6 @@ def generatePeople():
 		public_key = key.publickey().exportKey("PEM")
 		private_key = key.exportKey("PEM")
 
-
 		person = {
 			"firstname": firstname,
 			"lastname": lastname,
@@ -38,7 +37,7 @@ def generatePeople():
 			"publicKey": public_key,
 			"privateKey": private_key
 		}	
-		print(person, end='\n')
+		# print(person, end='\n')
 		personDictionary = [person["firstname"], person["lastname"], person["email"], person["password"], person["verifiedemail"], person["publicKey"], person["privateKey"]]
 		storeInCSV(personDictionary)
 
@@ -53,22 +52,27 @@ def storeInCSV(item):
 		writer = csv.writer(f)
 		writer.writerow(item)
 
-# def storePeopleInDatabase():
-# 	mydb = connectToDB()
-# 	mycursor = mydb.cursor()
+def storePeopleInDatabase():
+	# mydb = connectToDB()
+	# mycursor = mydb.cursor()
+	import mysql.connector
 
-	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
-	
+	mydb = mysql.connector.connect(
+		host="localhost",
+		user="root",
+		password="5308danielromeo"
+	)
 
-# 	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
-# 	val = ("John", "Highway", "password", "main@gmail.com", "1")
-# 	mycursor.execute(sql, val)
+	#here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
+	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
+	val = ("John", "Highway", "password", "main@gmail.com", "1")
+	mycursor.execute(sql, val)
 
-# 	mydb.commit()
-# 	print(mycursor.rowcount, "record inserted.")
+	mydb.commit()
+	print(mycursor.rowcount, "record inserted.")
 
 
 
-# storePeopleInDatabase()
+storePeopleInDatabase()
 generatePeople()
 
