@@ -1,11 +1,8 @@
 # This is a script that generates users(with thier details) and stores them in a .txt file
 import names
 import csv
-import mysql.connector
-from mysql.connector import Error
 
-
-# from database.config import main as connectToDB
+from database.config import main as connectToDB
 
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
@@ -55,28 +52,7 @@ def storeInCSV(item):
 
 def storePeopleInDatabase():
 	# mydb = connectToDB()
-	
-	try:
-		connection = mysql.connector.connect(
-			host="localhost",
-			user="root",
-			password="5308danielromeo"
-		)
-		if connection.is_connected():
-			db_Info = connection.get_server_info()
-			print("Connected to MySQL Server version ", db_Info)
-			cursor = connection.cursor()
-			cursor.execute("select database();")
-			record = cursor.fetchone()
-			print("You're connected to database: ", record)
 
-	except Error as e:
-		print("Error while connecting to MySQL", e)
-	finally:
-		if connection.is_connected():
-			cursor.close()
-			connection.close()
-			print("MySQL connection is closed")
 
 	#here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
 	# sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
@@ -88,6 +64,6 @@ def storePeopleInDatabase():
 
 
 
-storePeopleInDatabase()
+# storePeopleInDatabase()
 generatePeople()
 
