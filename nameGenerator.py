@@ -2,6 +2,7 @@
 import names
 import csv
 import mysql.connector
+from mysql.connector import Error
 
 
 # from database.config import main as connectToDB
@@ -54,22 +55,36 @@ def storeInCSV(item):
 
 def storePeopleInDatabase():
 	# mydb = connectToDB()
-	# mycursor = mydb.cursor()
-	import mysql.connector
+	
+	try:
+		connection = mysql.connector.connect(
+			host="localhost",
+			user="root",
+			password="5308danielromeo"
+		)
+		if connection.is_connected():
+			db_Info = connection.get_server_info()
+			print("Connected to MySQL Server version ", db_Info)
+			cursor = connection.cursor()
+			cursor.execute("select database();")
+			record = cursor.fetchone()
+			print("You're connected to database: ", record)
 
-	mydb = mysql.connector.connect(
-		host="localhost",
-		user="root",
-		password="5308danielromeo"
-	)
+	except Error as e:
+		print("Error while connecting to MySQL", e)
+	finally:
+		if connection.is_connected():
+			cursor.close()
+			connection.close()
+			print("MySQL connection is closed")
 
 	#here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
-	sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
-	val = ("John", "Highway", "password", "main@gmail.com", "1")
-	mycursor.execute(sql, val)
+	# sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
+	# val = ("John", "Highway", "password", "main@gmail.com", "1")
+	# mycursor.execute(sql, val)
 
-	mydb.commit()
-	print(mycursor.rowcount, "record inserted.")
+	# mydb.commit()
+	# print(mycursor.rowcount, "record inserted.")
 
 
 
