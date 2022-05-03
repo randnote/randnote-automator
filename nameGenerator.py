@@ -44,15 +44,14 @@ def generatePeople():
 
 def storeHeadersInCSV():
 	with open('people.csv', 'w', encoding='UTF8') as f:
-	    writer = csv.writer(f)
-
-	    header = ['firstname', 'lastname', 'email', 'password', 'verifiedemail', 'public_key', 'private_key']
-	    writer.writerow(header) # write the header
+		writer = csv.writer(f)
+		header = ['firstname', 'lastname', 'email', 'password', 'verifiedemail', 'public_key', 'private_key']
+		writer.writerow(header) # write the header
 
 def storeInCSV(item):
 	with open('people.csv', 'a', encoding='UTF8') as f:
-	    writer = csv.writer(f)
-	    writer.writerow(item)
+		writer = csv.writer(f)
+		writer.writerow(item)
 
 # def storePeopleInDatabase():
 # 	mydb = connectToDB()
