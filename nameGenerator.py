@@ -52,10 +52,7 @@ def storeInCSV(item):
 		writer.writerow(item)
 
 myDB = Database( 'randnotex', 'root', '5308danielromeo', 'localhost')
-myDB.connect()
-
-# create field list before inserting records...
-
+# myDB.connect()
 
 # extract the details of per user from the csv and add them to the list myfileList
 file = open("people.csv")
@@ -81,17 +78,12 @@ with open('people.csv', mode='r') as csv_file:
 		}
 
 		myDB.insert('users', myFieldList)
-		print(myFieldList)
+		# print(myFieldList)
 		line_count += 1	
-	print(f'Processed {line_count} lines.')
+	# print(f'Processed {line_count} lines.')
 
 
 # myDB.insert(myTableName, myFieldList)
-
-
-
-
-
 
 # myDB.disconnect()
 
