@@ -16,7 +16,8 @@ class Database:
 			connection = mysql.connector.connect(
 				host=     self.host,
 				user=     self.databaseUsername,
-				password= self.databasePassword
+				password= self.databasePassword,
+				database = 'randnotex'
 			)
 
 			if connection.is_connected():
@@ -29,9 +30,9 @@ class Database:
 		except Error as e:
 			print("Error while connecting to MYSQL", e)
 
-	def disconnect():
-		# try:
-		# 	connection
+	def insert(self, tableName, theFiledList): # params are table name and an array of the fields in order...
+		print("The record... has been inserted")
+		print(f'The table name is {tableName} and the fieldList is {theFiledList}')
 
 
 # def connectToDB(connection):

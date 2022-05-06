@@ -2,7 +2,8 @@
 import names
 import csv
 
-from database.config import main as connectToDB
+# from database.config import main as connectToDB
+from database.config import Database
 
 from Crypto.Signature import pkcs1_15
 from Crypto.Hash import SHA256
@@ -50,11 +51,51 @@ def storeInCSV(item):
 		writer = csv.writer(f)
 		writer.writerow(item)
 
-def storePeopleInDatabase():
-	# mydb = connectToDB()
+myDB = Database( 'randnotex', 'root', '5308danielromeo', 'localhost')
+myDB.connect()
+
+# create field list before inserting records...
 
 
-	#here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
+# extract the details of per user from the csv and add them to the list myfileList
+file = open("people.csv")
+reader = csv.reader(file)
+NumberOfLines= len(list(reader)) # Get the number of lines in the csv file
+
+# Loop through csv file and add to myFieldList and then call INSERT
+with open('people.csv', mode='r') as csv_file:
+	csv_reader = csv.DictReader(csv_file)
+	line_count = 0
+	for row in csv_reader:
+		if line_count == 0:
+			print(f'Column names are {", ".join(row)}')
+			line_count += 1
+
+		myFieldList = {
+			"firstname": row["firstname"],
+			"lastname": row["lastname"],
+			"email": row["email"],
+			"password": row["password"],
+			"verifiedemail": row["verifiedemail"],	
+			"balance": 1000
+		}
+
+		myDB.insert('users', myFieldList)
+		print(myFieldList)
+		line_count += 1	
+	print(f'Processed {line_count} lines.')
+
+
+# myDB.insert(myTableName, myFieldList)
+
+
+
+
+
+
+# myDB.disconnect()
+
+	# here i gotta create a for loop that gets all the users from the csv file and runs it through the sql
 	# sql = "INSERT INTO users (firstname, lastname, password, email, verifiedemail) VALUES (%s, %s,%s, %s,%s)"
 	# val = ("John", "Highway", "password", "main@gmail.com", "1")
 	# mycursor.execute(sql, val)
@@ -65,5 +106,5 @@ def storePeopleInDatabase():
 
 
 # storePeopleInDatabase()
-generatePeople()
+# generatePeople()
 
