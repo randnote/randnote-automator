@@ -95,6 +95,5 @@ def storePeopleInDB():
 			myDB.addUsersToAddresses(userAddressObject) # call the db method
 			line_count += 1	
 
-
 generatePeople()
 

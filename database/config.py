@@ -11,7 +11,6 @@ class Database:
 		self.host = host
 		self.databaseUsername = databaseUsername
 		
-	
 		try:
 			self.connection = mysql.connector.connect(
 				host=     self.host,
@@ -74,8 +73,5 @@ class Database:
 		print(self.cursor.rowcount, "Record inserted successfully into  table")
 		self.cursor.close()
 
-	def insertAddresses(self, theFieldList, tableName='addresses'):
 
-		# type of theFieldList should be: - user_id, publicAddr and privateAddr
-		print("")
 
