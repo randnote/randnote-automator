@@ -30,6 +30,29 @@ class Database:
 		except Error as e:
 			print("Error while connecting to MYSQL", e)
 
+	def getLastUser(self):
+		'''This def gets the last user in the users table'''
+		mySql_insert_query = """SELECT * FROM users ORDER BY id DESC LIMIT 1"""
+		self.cursor = self.connection.cursor()
+		self.cursor.execute(mySql_insert_query)
+		result = self.cursor.fetchone()
+		return result
+	
+	def addUsersToAddresses(self, theFieldList):
+		'''This def recieves the user_id and the addresses of a user and stores them in the addresses table'''
+		mySql_insert_query = """INSERT INTO addresses (user_id, publicAddress, privateAddress) 
+                           VALUES (%s, %s, %s) """
+		record = (
+			theFieldList["user_id"], 
+			theFieldList["pubilcAddress"], 
+			theFieldList["privateAddress"]
+		)
+		self.cursor = self.connection.cursor()
+		self.cursor.execute(mySql_insert_query, record)
+		self.connection.commit()
+		print(self.cursor.rowcount, "Record inserted successfully into addresses")
+		self.cursor.close()
+
 	def insert(self, tableName, theFiledList): # params are table name and an array of the fields in order...
 		# print(f"The record... has been inserted into {tableName}")
 
@@ -50,4 +73,9 @@ class Database:
 		self.connection.commit()
 		print(self.cursor.rowcount, "Record inserted successfully into  table")
 		self.cursor.close()
+
+	def insertAddresses(self, theFieldList, tableName='addresses'):
+
+		# type of theFieldList should be: - user_id, publicAddr and privateAddr
+		print("")
 

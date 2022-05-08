@@ -18,16 +18,15 @@ def generateFullnames():
 	return mylist
 
 def generatePeople():
+	key = RSA.generate(2048)
+	public_key = key.publickey().exportKey("PEM")
+	private_key = key.exportKey("PEM")
 
-	for i in range(100):
+	for i in range(5):
 		firstname = names.get_first_name()
 		lastname = names.get_last_name()
 		fullname = firstname+lastname
 		
-		key = RSA.generate(2048)
-		public_key = key.publickey().exportKey("PEM")
-		private_key = key.exportKey("PEM")
-
 		person = {
 			"firstname": firstname,
 			"lastname": lastname,
@@ -80,11 +79,31 @@ def storePeopleInDB():
 				"verifiedemail": row["verifiedemail"],	
 				"balance": 1000
 			}
-
 			myDB.insert('users', myFieldList)
+
+			# call the last db user here::::
+			lastUser = myDB.getLastUser()
+			print(lastUser[0])
+
 			line_count += 1	
 
 
+# def storePeoplesAddresses():
+# 	
+	
+# 	# type of theFieldList should be: - user_id, publicAddr and privateAddr
+# 	object = {
+# 		"user_id": 12,
+# 		
+# 	}
+		
+# 	print("hello")
+
+# def sampleTest():
+# 	myDB = Database( 'randnotex', 'root', '5308danielromeo', 'localhost')
+# 	info = myDB.getLastUser()
+# 	print(info[0])
+# sampleTest()
 
 
 generatePeople()
