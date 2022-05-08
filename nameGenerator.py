@@ -56,6 +56,10 @@ def storeInCSV(item):
 
 def storePeopleInDB():
 
+	key = RSA.generate(2048)
+	public_key = key.publickey().exportKey("PEM")
+	private_key = key.exportKey("PEM")
+
 	# extract the details of per user from the csv and add them to the list myfileList
 	myDB = Database( 'randnotex', 'root', '5308danielromeo', 'localhost')
 	file = open("people.csv")
@@ -81,29 +85,15 @@ def storePeopleInDB():
 			}
 			myDB.insert('users', myFieldList)
 
-			# call the last db user here::::
+			# call the last db user here and then create a proper dictionary, then send it off to the db model to insert in addresses table
 			lastUser = myDB.getLastUser()
-			print(lastUser[0])
-
+			userAddressObject = {
+				"user_id": lastUser[0],
+				"publicKey": public_key,
+				"privatKey": private_key
+			}
+			myDB.addUsersToAddresses(userAddressObject) # call the db method
 			line_count += 1	
-
-
-# def storePeoplesAddresses():
-# 	
-	
-# 	# type of theFieldList should be: - user_id, publicAddr and privateAddr
-# 	object = {
-# 		"user_id": 12,
-# 		
-# 	}
-		
-# 	print("hello")
-
-# def sampleTest():
-# 	myDB = Database( 'randnotex', 'root', '5308danielromeo', 'localhost')
-# 	info = myDB.getLastUser()
-# 	print(info[0])
-# sampleTest()
 
 
 generatePeople()

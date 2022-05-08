@@ -44,8 +44,8 @@ class Database:
                            VALUES (%s, %s, %s) """
 		record = (
 			theFieldList["user_id"], 
-			theFieldList["pubilcAddress"], 
-			theFieldList["privateAddress"]
+			theFieldList["publicKey"], 
+			theFieldList["privatKey"]
 		)
 		self.cursor = self.connection.cursor()
 		self.cursor.execute(mySql_insert_query, record)
