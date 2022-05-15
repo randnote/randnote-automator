@@ -73,5 +73,14 @@ class Database:
 		print(self.cursor.rowcount, "Record inserted successfully into  table")
 		self.cursor.close()
 
+	def getAllGeneratedUsers():
+		print("here")
+
+	def getOneGeneratedUser():
+		print("here one")
+
+	def getGeneratedUserWithLowestBalance():
+		print("here we are ")
+
 
 
