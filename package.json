@@ -1,0 +1,27 @@
+{
+  "name": "randnote-automator",
+  "version": "1.0.0",
+  "description": "A randnote automator for transactions and mining. Uses 100 radomly created accounts; transacts and mines using these accounts.",
+  "main": "keygen.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/randnote/randnote-automator.git"
+  },
+  "author": "Daniel Romeo Mamphekgo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/randnote/randnote-automator/issues"
+  },
+  "homepage": "https://github.com/randnote/randnote-automator#readme",
+  "dependencies": {
+    "csv-parser": "^3.0.0",
+    "csv-writer": "^1.6.0",
+    "elliptic": "^6.5.4"
+  }
+}
