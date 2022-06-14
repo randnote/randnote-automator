@@ -84,3 +84,4 @@ class Database:
 
 
 
+myDB = Database( 'randnotex', 'root', '', 'localhost')
