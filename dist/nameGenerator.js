@@ -55,7 +55,7 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
                 i = 0;
                 _a.label = 1;
             case 1:
-                if (!(i < 5)) return [3 /*break*/, 5];
+                if (!(i < 2)) return [3 /*break*/, 5];
                 key = ec.genKeyPair();
                 return [4 /*yield*/, key.getPublic("hex")];
             case 2:
@@ -76,7 +76,6 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
                 };
                 // now we add in the people array:
                 _1.PeopleArray.push(myObject);
-                console.log(_1.PeopleArray);
                 _a.label = 4;
             case 4:
                 i++;
@@ -87,12 +86,10 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
 }); };
 exports.generator = generator;
 var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var i, firstname, lastname, email, password, verifiedemail, balance, publicKey, privateKey;
+    var i, firstname, lastname, email, password, verifiedemail, balance, publicKey, privateKey, userobject;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                console.log("did");
-                console.log(_1.PeopleArray);
                 i = 0;
                 _a.label = 1;
             case 1:
@@ -102,10 +99,18 @@ var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, fun
                 email = _1.PeopleArray[i].email;
                 password = _1.PeopleArray[i].password;
                 verifiedemail = _1.PeopleArray[i].verifiedemail;
-                balance = 0;
+                balance = 0.00;
                 publicKey = _1.PeopleArray[i].publicKey;
                 privateKey = _1.PeopleArray[i].privateKey;
-                return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET (firstname, lastname, email, password, verifiedemail, balance) VALUES  (".concat(firstname, ",").concat(lastname, ",").concat(email, ",").concat(password, ",").concat(verifiedemail, ",").concat(balance, ")"), function (err, res) {
+                userobject = {
+                    firstname: firstname,
+                    lastname: lastname,
+                    email: email,
+                    password: password,
+                    verifiedemail: verifiedemail,
+                    balance: balance
+                };
+                return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET ?", userobject, function (err, res) {
                         if (err) {
                             console.log("error: ", err);
                             return;

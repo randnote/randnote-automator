@@ -16,10 +16,8 @@ interface Person {
 	privateKey: number;
 }
 
-
-
 const generator = async () => {
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 2; i++) {
 		const key = ec.genKeyPair();
 		const publicKey = await key.getPublic("hex");
 		const privateKey = await key.getPrivate("hex");
@@ -39,35 +37,42 @@ const generator = async () => {
 
 		// now we add in the people array:
 		PeopleArray.push(myObject);
-		
-		console.log(PeopleArray)
+
+		// console.log(PeopleArray);
 	}
 };
 
-const storeInDatabase = async() => {
-	console.log("did")
-	console.log(PeopleArray)
+const storeInDatabase = async () => {
 	for (let i = 0; i < PeopleArray.length; i++) {
-		
 		let firstname = PeopleArray[i].firstname;
 		let lastname = PeopleArray[i].lastname;
 		let email = PeopleArray[i].email;
 		let password = PeopleArray[i].password;
 		let verifiedemail = PeopleArray[i].verifiedemail;
-		let balance = 0;
+		let balance = 0.00;
 
 		let publicKey = PeopleArray[i].publicKey;
 		let privateKey = PeopleArray[i].privateKey;
 
+		let userobject = {
+			firstname:firstname,
+			lastname:lastname,
+			email:email,
+			password:password,
+			verifiedemail:verifiedemail,
+			balance:balance
+		}
+
 		await connection.query(
-			`INSERT INTO users SET (firstname, lastname, email, password, verifiedemail, balance) VALUES  (${firstname},${lastname},${email},${password},${verifiedemail},${balance})`,
+			"INSERT INTO users SET ?",
+			userobject,
 			(err: Error, res: any) => {
 				if (err) {
 					console.log("error: ", err);
 					return;
 				} else {
 					console.log("User created successfully");
-					console.log(res)
+					console.log(res);
 				}
 			}
 		);

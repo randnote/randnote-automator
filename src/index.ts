@@ -4,14 +4,11 @@ let PeopleArray: Person[] = []; // array will store Person's
 
 //console.log("heloo world");
 
-const func = async() =>{
-    await generator();
-    await storeInDatabase();
-
-}
+const func = async () => {
+	await generator();
+	await storeInDatabase();
+};
 
 func();
 
-
-
-export {PeopleArray};
+export { PeopleArray };
