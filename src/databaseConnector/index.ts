@@ -1,12 +1,12 @@
 const mysql = require("mysql");
 // const dbConfig = require("./db.config");
 
-const connectorObject ={
-    HOST: "localhost",
+const connectorObject = {
+	HOST: "localhost",
 	USER: "root",
 	PASSWORD: "",
 	DB: "randnotex",
-}
+};
 
 const connection = mysql.createConnection({
 	host: connectorObject.HOST,

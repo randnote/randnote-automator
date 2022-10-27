@@ -39,17 +39,19 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.storeInDatabase = exports.generator = void 0;
 /* generates names and thier public and private keys */
 var chance_1 = __importDefault(require("chance"));
 var elliptic_1 = __importDefault(require("elliptic"));
+var databaseConnector_1 = __importDefault(require("./databaseConnector"));
+var _1 = require(".");
 var EC = elliptic_1.default.ec;
 var ec = new EC("secp256k1");
 var generator = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var PeopleArray, i, key, publicKey, privateKey, myObject;
+    var i, key, publicKey, privateKey, firstname, lastname, myObject;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                PeopleArray = [];
                 i = 0;
                 _a.label = 1;
             case 1:
@@ -61,15 +63,20 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
                 return [4 /*yield*/, key.getPrivate("hex")];
             case 3:
                 privateKey = _a.sent();
+                firstname = (0, chance_1.default)().first();
+                lastname = (0, chance_1.default)().last();
                 myObject = {
-                    firstname: (0, chance_1.default)().first(),
-                    lastname: (0, chance_1.default)().last(),
+                    firstname: firstname,
+                    lastname: lastname,
                     password: "password",
+                    email: "".concat(firstname).concat(lastname, "@randnotex.co.za"),
                     verifiedemail: 1,
                     publicKey: publicKey,
                     privateKey: privateKey,
                 };
-                console.log(myObject);
+                // now we add in the people array:
+                _1.PeopleArray.push(myObject);
+                console.log(_1.PeopleArray);
                 _a.label = 4;
             case 4:
                 i++;
@@ -78,5 +85,45 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
         }
     });
 }); };
-exports.default = generator;
+exports.generator = generator;
+var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var i, firstname, lastname, email, password, verifiedemail, balance, publicKey, privateKey;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                console.log("did");
+                console.log(_1.PeopleArray);
+                i = 0;
+                _a.label = 1;
+            case 1:
+                if (!(i < _1.PeopleArray.length)) return [3 /*break*/, 4];
+                firstname = _1.PeopleArray[i].firstname;
+                lastname = _1.PeopleArray[i].lastname;
+                email = _1.PeopleArray[i].email;
+                password = _1.PeopleArray[i].password;
+                verifiedemail = _1.PeopleArray[i].verifiedemail;
+                balance = 0;
+                publicKey = _1.PeopleArray[i].publicKey;
+                privateKey = _1.PeopleArray[i].privateKey;
+                return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET (firstname, lastname, email, password, verifiedemail, balance) VALUES  (".concat(firstname, ",").concat(lastname, ",").concat(email, ",").concat(password, ",").concat(verifiedemail, ",").concat(balance, ")"), function (err, res) {
+                        if (err) {
+                            console.log("error: ", err);
+                            return;
+                        }
+                        else {
+                            console.log("User created successfully");
+                            console.log(res);
+                        }
+                    })];
+            case 2:
+                _a.sent();
+                _a.label = 3;
+            case 3:
+                i++;
+                return [3 /*break*/, 1];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.storeInDatabase = storeInDatabase;
 //# sourceMappingURL=nameGenerator.js.map

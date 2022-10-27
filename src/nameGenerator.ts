@@ -2,6 +2,7 @@
 import chance from "chance";
 import Elliptic from "elliptic";
 import connection from "./databaseConnector";
+import { PeopleArray } from ".";
 const EC = Elliptic.ec;
 const ec = new EC("secp256k1");
 
@@ -15,10 +16,9 @@ interface Person {
 	privateKey: number;
 }
 
-let PeopleArray: Person[] = []; // array will store Person's
+
 
 const generator = async () => {
-	
 	for (let i = 0; i < 5; i++) {
 		const key = ec.genKeyPair();
 		const publicKey = await key.getPublic("hex");
@@ -39,35 +39,39 @@ const generator = async () => {
 
 		// now we add in the people array:
 		PeopleArray.push(myObject);
+		
+		console.log(PeopleArray)
 	}
 };
 
-const storeInDatabase = () => {
-	for(let i =0; i < PeopleArray.length; i++){
-
+const storeInDatabase = async() => {
+	console.log("did")
+	console.log(PeopleArray)
+	for (let i = 0; i < PeopleArray.length; i++) {
+		
 		let firstname = PeopleArray[i].firstname;
 		let lastname = PeopleArray[i].lastname;
 		let email = PeopleArray[i].email;
 		let password = PeopleArray[i].password;
 		let verifiedemail = PeopleArray[i].verifiedemail;
 		let balance = 0;
-		
+
 		let publicKey = PeopleArray[i].publicKey;
 		let privateKey = PeopleArray[i].privateKey;
-		
 
-		connection.query(
+		await connection.query(
 			`INSERT INTO users SET (firstname, lastname, email, password, verifiedemail, balance) VALUES  (${firstname},${lastname},${email},${password},${verifiedemail},${balance})`,
 			(err: Error, res: any) => {
 				if (err) {
 					console.log("error: ", err);
 					return;
-				}else{
+				} else {
 					console.log("User created successfully");
+					console.log(res)
 				}
 			}
 		);
 	}
-}
+};
 
-export  {generator, storeInDatabase};
+export { generator, storeInDatabase, Person };
