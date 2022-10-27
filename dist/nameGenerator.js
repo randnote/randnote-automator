@@ -86,40 +86,76 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
 }); };
 exports.generator = generator;
 var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var i, firstname, lastname, email, password, verifiedemail, balance, publicKey, privateKey, userobject;
+    var _loop_1, i;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                _loop_1 = function (i) {
+                    var firstname, lastname, email, password, verifiedemail, balance, publicKey, privateKey, userobject;
+                    return __generator(this, function (_b) {
+                        switch (_b.label) {
+                            case 0:
+                                firstname = _1.PeopleArray[i].firstname;
+                                lastname = _1.PeopleArray[i].lastname;
+                                email = _1.PeopleArray[i].email;
+                                password = _1.PeopleArray[i].password;
+                                verifiedemail = _1.PeopleArray[i].verifiedemail;
+                                balance = 0.0;
+                                publicKey = _1.PeopleArray[i].publicKey;
+                                privateKey = _1.PeopleArray[i].privateKey;
+                                userobject = {
+                                    firstname: firstname,
+                                    lastname: lastname,
+                                    email: email,
+                                    password: password,
+                                    verifiedemail: verifiedemail,
+                                    balance: balance,
+                                };
+                                return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET ?", userobject, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
+                                        var userobject2;
+                                        return __generator(this, function (_a) {
+                                            switch (_a.label) {
+                                                case 0:
+                                                    if (!err) return [3 /*break*/, 1];
+                                                    console.log("error: ", err);
+                                                    return [2 /*return*/];
+                                                case 1:
+                                                    console.log("User created successfully");
+                                                    userobject2 = {
+                                                        user_id: res.insertId,
+                                                        publicAddress: publicKey,
+                                                        privateAddress: privateKey
+                                                    };
+                                                    return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO addresses SET ?", userobject2, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
+                                                            return __generator(this, function (_a) {
+                                                                if (err) {
+                                                                    console.log("error: ", err);
+                                                                    return [2 /*return*/];
+                                                                }
+                                                                else {
+                                                                    console.log("User addresses have been successfully inserted in the database.");
+                                                                }
+                                                                return [2 /*return*/];
+                                                            });
+                                                        }); })];
+                                                case 2:
+                                                    _a.sent();
+                                                    _a.label = 3;
+                                                case 3: return [2 /*return*/];
+                                            }
+                                        });
+                                    }); })];
+                            case 1:
+                                _b.sent();
+                                return [2 /*return*/];
+                        }
+                    });
+                };
                 i = 0;
                 _a.label = 1;
             case 1:
                 if (!(i < _1.PeopleArray.length)) return [3 /*break*/, 4];
-                firstname = _1.PeopleArray[i].firstname;
-                lastname = _1.PeopleArray[i].lastname;
-                email = _1.PeopleArray[i].email;
-                password = _1.PeopleArray[i].password;
-                verifiedemail = _1.PeopleArray[i].verifiedemail;
-                balance = 0.00;
-                publicKey = _1.PeopleArray[i].publicKey;
-                privateKey = _1.PeopleArray[i].privateKey;
-                userobject = {
-                    firstname: firstname,
-                    lastname: lastname,
-                    email: email,
-                    password: password,
-                    verifiedemail: verifiedemail,
-                    balance: balance
-                };
-                return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET ?", userobject, function (err, res) {
-                        if (err) {
-                            console.log("error: ", err);
-                            return;
-                        }
-                        else {
-                            console.log("User created successfully");
-                            console.log(res);
-                        }
-                    })];
+                return [5 /*yield**/, _loop_1(i)];
             case 2:
                 _a.sent();
                 _a.label = 3;

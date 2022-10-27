@@ -49,30 +49,49 @@ const storeInDatabase = async () => {
 		let email = PeopleArray[i].email;
 		let password = PeopleArray[i].password;
 		let verifiedemail = PeopleArray[i].verifiedemail;
-		let balance = 0.00;
+		let balance = 0.0;
 
 		let publicKey = PeopleArray[i].publicKey;
 		let privateKey = PeopleArray[i].privateKey;
 
 		let userobject = {
-			firstname:firstname,
-			lastname:lastname,
-			email:email,
-			password:password,
-			verifiedemail:verifiedemail,
-			balance:balance
-		}
+			firstname: firstname,
+			lastname: lastname,
+			email: email,
+			password: password,
+			verifiedemail: verifiedemail,
+			balance: balance,
+		};
 
 		await connection.query(
 			"INSERT INTO users SET ?",
 			userobject,
-			(err: Error, res: any) => {
+			async(err: Error, res: any) => {
 				if (err) {
 					console.log("error: ", err);
 					return;
 				} else {
 					console.log("User created successfully");
-					console.log(res);
+
+					// take the user's insertId and make another query.
+					let userobject2 = {
+						user_id: res.insertId,
+						publicAddress: publicKey,
+						privateAddress: privateKey
+					}
+
+					await connection.query(
+						"INSERT INTO addresses SET ?",
+						userobject2,
+						async(err: Error, res: any) => {
+							if (err) {
+								console.log("error: ", err);
+								return;
+							} else {
+								console.log("User addresses have been successfully inserted in the database.");
+							}
+						}
+					);
 				}
 			}
 		);
