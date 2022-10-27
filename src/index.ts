@@ -1,1 +1,4 @@
-console.log("heloo world");
+import generator from "./nameGenerator"
+
+console.log("heloo world")
+generator()

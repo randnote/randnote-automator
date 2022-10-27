@@ -1,39 +1,37 @@
 /* generates names and thier public and private keys */
-import chance from "chance"
+import chance from "chance";
+import Elliptic from "elliptic";
+const EC = Elliptic.ec;
+const ec = new EC("secp256k1");
 
-interface Person{
-    firstname: string,
-    lastname: string,
-    password: string,
-    verifiedemail: number,
-    publicKey: number,
-    privateKey: number
+interface Person {
+	firstname: string;
+	lastname: string;
+	password: string;
+	verifiedemail: number;
+	publicKey: number;
+	privateKey: number;
 }
 
 
-const generator = () =>{
-    // let firstname, lastname, password, verifiedemail, publicKey;
-    
-    for(let i = 0; i < 10; i++){
-        let myObject: Person = {
-            firstname: chance.first({ nationality: 'us' }),
-            lastname: chance.last({nationality: 'us'}),
-            password: "password",
-            verifiedemail: 1,
-            publicKey: 1,
-            privateKey: 1
-        }
-        
-    }
-}
+const generator = async() => {
+	let PeopleArray = []; // array will store Person's
 
-// person = {
-//     "firstname": firstname,
-//     "lastname": lastname,
-//     "password": generate_random_password(),
-//     "email": fullname+"@randnoteGen.com",
-//     "verifiedemail": 1,
-//     "publicKey": 2,
-//     "privateKey": 2
-// }	
+	for (let i = 0; i < 5; i++) {
+        const key = ec.genKeyPair();
+	    const publicKey = await key.getPublic("hex");
+	    const privateKey = await key.getPrivate("hex");
 
+		let myObject: Person = {
+			firstname: chance().first(),
+			lastname: chance().last(),
+			password: "password",
+			verifiedemail: 1,
+			publicKey: publicKey,
+			privateKey: privateKey,
+		};
+		console.log(myObject)
+	}
+};
+
+export default generator;
