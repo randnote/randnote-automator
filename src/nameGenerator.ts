@@ -66,7 +66,7 @@ const storeInDatabase = async () => {
 		await connection.query(
 			"INSERT INTO users SET ?",
 			userobject,
-			async(err: Error, res: any) => {
+			async (err: Error, res: any) => {
 				if (err) {
 					console.log("error: ", err);
 					return;
@@ -77,18 +77,20 @@ const storeInDatabase = async () => {
 					let userobject2 = {
 						user_id: res.insertId,
 						publicAddress: publicKey,
-						privateAddress: privateKey
-					}
+						privateAddress: privateKey,
+					};
 
 					await connection.query(
 						"INSERT INTO addresses SET ?",
 						userobject2,
-						async(err: Error, res: any) => {
+						async (err: Error, res: any) => {
 							if (err) {
 								console.log("error: ", err);
 								return;
 							} else {
-								console.log("User addresses have been successfully inserted in the database.");
+								console.log(
+									"User addresses have been successfully inserted in the database."
+								);
 							}
 						}
 					);
