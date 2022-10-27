@@ -1,6 +1,0 @@
-pycrypto==2.6.1
-pycryptodome==3.14.1
-mysqlclient==2.1.0
-mysql-connector-python==8.0.23
-requests==2.27.1
-js2py==0.71
