@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.storeInDatabase = exports.generator = void 0;
+exports.StoreSudoInDB = exports.storeInDatabase = exports.generator = void 0;
 /* generates names and thier public and private keys */
 var chance_1 = __importDefault(require("chance"));
 var elliptic_1 = __importDefault(require("elliptic"));
@@ -47,6 +47,84 @@ var databaseConnector_1 = __importDefault(require("./databaseConnector"));
 var _1 = require(".");
 var EC = elliptic_1.default.ec;
 var ec = new EC("secp256k1");
+var StoreSudoInDB = function () {
+    var SudoArr = [];
+    var RandnoteUSER = {
+        firstname: "RANDNOTE",
+        lastname: "RANDNOTE",
+        email: "RANDNOTE@macbase.co.za",
+        password: "password",
+        verifiedemail: 1,
+        publicKey: "049336f33b2edcb550017e4085f098dd91dbfa762a04f08ba0bed56bbd473751a43f1c5cd867b2a842922b3f92e353b14bf1c0f1f3e3f4f05762f6792a564ef102",
+        privateKey: "cda0af58d5bdfa5551d54677fa293cae0363474f1eae7cb5e5abf60f8b8c7e2b",
+    };
+    var DanielUser = {
+        firstname: "Daniel",
+        lastname: "Mamph",
+        email: "daniel@gmail.com",
+        password: "password",
+        verifiedemail: 1,
+        publicKey: "0444ef6880a4f9afb7887b70c8cb4385083108326a46dfd9cf080dc97daf287dd3d573ad67bb15fbdfbc6d05fa7f5a1ef48eddfbc3cba23370e5677cca817de307",
+        privateKey: "2668898c66b5dea316725f4f957070c3e12cd9292f3361107bececfabd6c2074",
+    };
+    SudoArr.push(RandnoteUSER);
+    SudoArr.push(DanielUser);
+    var balance = 10000000;
+    SudoArr.forEach(function (user) { return __awaiter(void 0, void 0, void 0, function () {
+        var object;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    object = {
+                        firstname: user.firstname,
+                        lastname: user.lastname,
+                        email: user.email,
+                        password: user.password,
+                        verifiedemail: user.verifiedemail,
+                        balance: 10000000
+                    };
+                    return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET ?", object, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
+                            var userobject2;
+                            return __generator(this, function (_a) {
+                                switch (_a.label) {
+                                    case 0:
+                                        if (!err) return [3 /*break*/, 1];
+                                        console.log("error: ", err);
+                                        return [2 /*return*/];
+                                    case 1:
+                                        console.log("User created successfully");
+                                        userobject2 = {
+                                            user_id: res.insertId,
+                                            publicAddress: user.publicKey,
+                                            privateAddress: user.privateKey,
+                                        };
+                                        return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO addresses SET ?", userobject2, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
+                                                return __generator(this, function (_a) {
+                                                    if (err) {
+                                                        console.log("error: ", err);
+                                                        return [2 /*return*/];
+                                                    }
+                                                    else {
+                                                        console.log("SUDO user address inserted successfully");
+                                                    }
+                                                    return [2 /*return*/];
+                                                });
+                                            }); })];
+                                    case 2:
+                                        _a.sent();
+                                        _a.label = 3;
+                                    case 3: return [2 /*return*/];
+                                }
+                            });
+                        }); })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); });
+};
+exports.StoreSudoInDB = StoreSudoInDB;
 var generator = function () { return __awaiter(void 0, void 0, void 0, function () {
     var i, key, publicKey, privateKey, firstname, lastname, myObject;
     return __generator(this, function (_a) {
@@ -55,7 +133,7 @@ var generator = function () { return __awaiter(void 0, void 0, void 0, function 
                 i = 0;
                 _a.label = 1;
             case 1:
-                if (!(i < 2)) return [3 /*break*/, 5];
+                if (!(i < 48)) return [3 /*break*/, 5];
                 key = ec.genKeyPair();
                 return [4 /*yield*/, key.getPublic("hex")];
             case 2:
@@ -124,7 +202,7 @@ var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, fun
                                                     userobject2 = {
                                                         user_id: res.insertId,
                                                         publicAddress: publicKey,
-                                                        privateAddress: privateKey
+                                                        privateAddress: privateKey,
                                                     };
                                                     return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO addresses SET ?", userobject2, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
                                                             return __generator(this, function (_a) {

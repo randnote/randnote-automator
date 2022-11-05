@@ -40,19 +40,21 @@ exports.PeopleArray = void 0;
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
-//console.log("heloo world");
-var func = function () { return __awaiter(void 0, void 0, void 0, function () {
+var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, (0, nameGenerator_1.generator)()];
+            case 0: return [4 /*yield*/, (0, nameGenerator_1.StoreSudoInDB)()];
             case 1:
                 _a.sent();
-                return [4 /*yield*/, (0, nameGenerator_1.storeInDatabase)()];
+                return [4 /*yield*/, (0, nameGenerator_1.generator)()];
             case 2:
+                _a.sent();
+                return [4 /*yield*/, (0, nameGenerator_1.storeInDatabase)()];
+            case 3:
                 _a.sent();
                 return [2 /*return*/];
         }
     });
 }); };
-func();
+generateRandomUsersAndStoreInDatabase();
 //# sourceMappingURL=index.js.map

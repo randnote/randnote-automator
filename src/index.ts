@@ -1,14 +1,14 @@
-import { generator, storeInDatabase, Person } from "./nameGenerator";
+import { generator, storeInDatabase, Person,StoreSudoInDB } from "./nameGenerator";
 import connection from "./databaseConnector";
 let PeopleArray: Person[] = []; // array will store Person's
 
-//console.log("heloo world");
 
-const func = async () => {
+
+const generateRandomUsersAndStoreInDatabase = async () => {
+	await StoreSudoInDB()
 	await generator();
 	await storeInDatabase();
 };
-
-func();
+generateRandomUsersAndStoreInDatabase();
 
 export { PeopleArray };

@@ -4,9 +4,10 @@ interface Person {
     password: string;
     email: string;
     verifiedemail: number;
-    publicKey: number;
-    privateKey: number;
+    publicKey: any;
+    privateKey: any;
 }
+declare const StoreSudoInDB: () => void;
 declare const generator: () => Promise<void>;
 declare const storeInDatabase: () => Promise<void>;
-export { generator, storeInDatabase, Person };
+export { generator, storeInDatabase, Person, StoreSudoInDB };
