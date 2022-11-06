@@ -81,7 +81,7 @@ var StoreSudoInDB = function () {
                         email: user.email,
                         password: user.password,
                         verifiedemail: user.verifiedemail,
-                        balance: 10000000
+                        balance: 10000000,
                     };
                     return [4 /*yield*/, databaseConnector_1.default.query("INSERT INTO users SET ?", object, function (err, res) { return __awaiter(void 0, void 0, void 0, function () {
                             var userobject2;
@@ -178,7 +178,7 @@ var storeInDatabase = function () { return __awaiter(void 0, void 0, void 0, fun
                                 email = _1.PeopleArray[i].email;
                                 password = _1.PeopleArray[i].password;
                                 verifiedemail = _1.PeopleArray[i].verifiedemail;
-                                balance = 0.0;
+                                balance = 60000;
                                 publicKey = _1.PeopleArray[i].publicKey;
                                 privateKey = _1.PeopleArray[i].privateKey;
                                 userobject = {
