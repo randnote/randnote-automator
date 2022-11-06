@@ -1,2 +1,2 @@
-declare const websiteTrader: () => void;
+declare const websiteTrader: () => Promise<void>;
 export default websiteTrader;

@@ -12,7 +12,7 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 	// await StoreSudoInDB();
 	// await generator();
 	// await storeInDatabase();
-	websiteTrader()
+	websiteTrader();
 };
 generateRandomUsersAndStoreInDatabase();
 
