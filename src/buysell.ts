@@ -23,36 +23,34 @@ const websiteTrader = async () => {
 // funciton to get users with the lowesst balance and highest balance:
 const getLowestBiggest = () => {
 	let smallestUser = users[0];
-	let biggestUser = users[0]
+	let biggestUser = users[0];
 	for (let i = 0; i < users.length; i++) {
-		if(smallestUser.balance > users[i].balance){
-			smallestUser = users[i]
+		if (smallestUser.balance > users[i].balance) {
+			smallestUser = users[i];
 		}
-		if(biggestUser.balance < users[i].balance){
-			biggestUser = users[i]
+		if (biggestUser.balance < users[i].balance) {
+			biggestUser = users[i];
 		}
-		
 	}
 	let obj = {
-		"smallest" : smallestUser,
-		"biggest" : biggestUser
-	}
+		smallest: smallestUser,
+		biggest: biggestUser,
+	};
 	return obj;
 };
 
-// value determiner function: 
+// value determiner function:
 // this function gets the price and determines how many notes you should receive if you want to spend a partucular amount.
-const valueDeterminer = () =>{
-	let value:number = 0;
+const valueDeterminer = () => {
+	let value: number = 0;
 
 	return value;
-}
-
+};
 
 const myLoop = () => {
 	let i = 11;
 	setTimeout(() => {
-		console.log(getLowestBiggest()) // shows the lowest and hights user
+		console.log(getLowestBiggest()); // shows the lowest and hights user
 
 		// make the highest user buy notes:
 		let biggestUser = getLowestBiggest["biggest"];
@@ -63,7 +61,7 @@ const myLoop = () => {
 			amount: Math.floor(Math.random() * biggestUser.balance) + 1, // any number betwenn 10 and their balance
 			ordertype: "buy",
 			notes: 0, // we also need to call some sort of API and figure out how many notes they should get....
-		}
+		};
 		// Axios.post(`http://localhost:8024/transactionWebsite`, orderObject)
 		// 	.then((res) => {
 		// 		console.log("Transaction made");
@@ -84,5 +82,5 @@ myLoop();
 
 export default websiteTrader;
 
-// LONG STORY SHORT, I NEED TO WRITE A FUNCITON IN THE BACKEND - SAME THING I DID IN THE FRONTED, WHICH WILL GET ME THE PRICE AND DETERMINE HOW 
+// LONG STORY SHORT, I NEED TO WRITE A FUNCITON IN THE BACKEND - SAME THING I DID IN THE FRONTED, WHICH WILL GET ME THE PRICE AND DETERMINE HOW
 // MUCH I SHOULD PAY PER NOTE , PER HOW MANY NOTES
