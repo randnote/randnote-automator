@@ -45,11 +45,9 @@ var users = [];
 var websiteTrader = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getUserData")
+            case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                     .then(function (res) {
                     if (res.status == 200) {
-                        // console.log(res.data);
-                        // users = await res.data
                         res.data.forEach(function (element) {
                             users.push(element);
                         });
@@ -60,11 +58,22 @@ var websiteTrader = function () { return __awaiter(void 0, void 0, void 0, funct
                 })];
             case 1:
                 _a.sent();
-                console.log(users.length);
+                // console.log(users.length);
                 console.log(users[5]);
                 return [2 /*return*/];
         }
     });
 }); };
+var i = 11;
+var myLoop = function () {
+    setTimeout(function () {
+        console.log('hello');
+        // i++;                   
+        if (i > 10) {
+            myLoop();
+        }
+    }, 1000);
+};
+myLoop();
 exports.default = websiteTrader;
 //# sourceMappingURL=buysell.js.map
