@@ -64,11 +64,31 @@ var websiteTrader = function () { return __awaiter(void 0, void 0, void 0, funct
         }
     });
 }); };
-var i = 11;
+// funciton to get users with the lowesst balance and highest balance:
+var getLowestBiggest = function () {
+    var smallestUser = users[0];
+    var biggestUser = users[0];
+    for (var i = 0; i < users.length; i++) {
+        if (smallestUser.balance > users[i].balance) {
+            smallestUser = users[i];
+        }
+        if (biggestUser.balance < users[i].balance) {
+            biggestUser = users[i];
+        }
+    }
+    var obj = {
+        "smallest": smallestUser,
+        "biggest": biggestUser
+    };
+    return obj;
+};
 var myLoop = function () {
+    var i = 11;
     setTimeout(function () {
-        console.log('hello');
-        // i++;                   
+        console.log("hello");
+        // code here
+        console.log(getLowestBiggest());
+        // console.log()
         if (i > 10) {
             myLoop();
         }
