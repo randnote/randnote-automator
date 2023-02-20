@@ -117,14 +117,9 @@ const generator = async () => {
 
 		// console.log(PeopleArray);
 	}
-
-	// PeopleArray.push(RandnoteUSER);
-	// PeopleArray.push(DanielUser);
 };
 
 const storeInDatabase = async () => {
-	// PeopleArray.push(RandnoteUSER);
-	// PeopleArray.push(DanielUser);
 	for (let i = 0; i < PeopleArray.length; i++) {
 		let firstname = PeopleArray[i].firstname;
 		let lastname = PeopleArray[i].lastname;

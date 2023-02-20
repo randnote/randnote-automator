@@ -4,7 +4,7 @@ const mysql = require("mysql");
 const connectorObject = {
 	HOST: "localhost",
 	USER: "root",
-	PASSWORD: "",
+	PASSWORD: "5308danielromeo",
 	DB: "randnotex",
 };
 

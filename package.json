@@ -27,7 +27,8 @@
     "elliptic": "^6.5.4",
     "mysql": "^2.18.1",
     "pre-commit": "^1.2.2",
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
     "@types/node": "^16.10.2",
