@@ -1,7 +1,10 @@
-/*
-    Use the users array and get the user with the lowest balance, then deposit into their account, simple
-
-    To deposit, the user needs to have a card... - When creating these users, also create a card for them...
-    -Then write a route in the backend that returns a users card
-*/
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+var worker_threads_1 = require("worker_threads");
+var func = function () {
+    worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage("depositor worker done");
+};
+setInterval(function () {
+    func();
+}, 1000);
 //# sourceMappingURL=depositor.js.map

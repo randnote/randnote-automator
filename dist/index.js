@@ -37,25 +37,39 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PeopleArray = void 0;
-var nameGenerator_1 = require("./nameGenerator");
-// import websiteTrader from "./buysell";
+var worker_threads_1 = require("worker_threads");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
 var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: 
-            // await StoreSudoInDB();
-            return [4 /*yield*/, (0, nameGenerator_1.generator)()];
-            case 1:
-                // await StoreSudoInDB();
-                _a.sent();
-                return [4 /*yield*/, (0, nameGenerator_1.storeInDatabase)()];
-            case 2:
-                _a.sent();
-                return [2 /*return*/];
-        }
+        return [2 /*return*/];
     });
 }); };
-generateRandomUsersAndStoreInDatabase();
+//generateRandomUsersAndStoreInDatabase();
+var worker = new worker_threads_1.Worker('./miner.js');
+var worker2 = new worker_threads_1.Worker('./depositor.js');
+// setTimeout(()=>{
+// 	console.log("print")
+// }), 3000;
+// setInterval(()=>{
+// 	console.log("gang")
+// }, 1000);
+var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        worker.on('message', function (data) {
+            console.log('the data is   :' + data);
+        });
+        worker2.on('message', function (data) {
+            console.log('worker 2 :' + data);
+        });
+        worker.on('error', function (error) {
+            console.log(error);
+        });
+        worker2.on('error', function (error) {
+            console.log(error);
+        });
+        return [2 /*return*/];
+    });
+}); };
+tradeAndMiner();
 //# sourceMappingURL=index.js.map
