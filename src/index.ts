@@ -18,6 +18,7 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 const worker = new Worker("./worker_miner.js");
 const worker2 = new Worker("./depositor.js");
 
+
 const tradeAndMiner = async () => {
 	worker.on("message", (data) => {
 		// console.log(JSON.stringify(data));

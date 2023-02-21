@@ -68,8 +68,7 @@ exports.getUsers = getUsers;
 var getLowestBiggest = function (arr2) { return __awaiter(void 0, void 0, void 0, function () {
     var arr, smallestUser, biggestUser, i, obj;
     return __generator(this, function (_a) {
-        arr = JSON.parse(arr2) // because we JSONified it 
-        ;
+        arr = JSON.parse(arr2);
         smallestUser = arr[0];
         biggestUser = arr[0];
         for (i = 0; i < arr.length; i++) {
