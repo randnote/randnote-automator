@@ -54,18 +54,21 @@ var main = function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
-                        .then(function (res) {
-                        if (res.status == 200) {
-                            // res.data.forEach((element: any) => {
-                            //     users.push(element);
-                            // });
-                            var obj = (0, functions_1.getLowestBiggest)(res.data);
-                            // console.log(obj);
-                            object = obj;
-                            console.log(res.data);
-                            worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage(res.data);
-                        }
-                    })
+                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                        var obj;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(res.status == 200)) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, (0, functions_1.getLowestBiggest)(JSON.stringify(res.data))];
+                                case 1:
+                                    obj = _a.sent();
+                                    worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage(obj);
+                                    _a.label = 2;
+                                case 2: return [2 /*return*/];
+                            }
+                        });
+                    }); })
                         .catch(function (err) {
                         console.log(err);
                     })];
@@ -79,6 +82,5 @@ var main = function () {
 };
 setInterval(function () {
     main();
-}, 6000);
-// main();
+}, 1000);
 //# sourceMappingURL=worker_miner.js.map

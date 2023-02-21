@@ -1,5 +1,5 @@
 declare const getUsers: () => Promise<void>;
-declare const getLowestBiggest: (arr: any) => Promise<{
+declare const getLowestBiggest: (arr2: any) => Promise<{
     smallest: any;
     biggest: any;
 }>;

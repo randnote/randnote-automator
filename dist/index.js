@@ -63,7 +63,8 @@ var worker2 = new worker_threads_1.Worker("./depositor.js");
 var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         worker.on("message", function (data) {
-            console.log("the data is   :" + JSON.stringify(data));
+            // console.log(JSON.stringify(data));
+            console.log(data);
         });
         // worker2.on("message", (data) => {
         // 	console.log("worker 2 :" + data);

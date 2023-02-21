@@ -20,7 +20,8 @@ const worker2 = new Worker("./depositor.js");
 
 const tradeAndMiner = async () => {
 	worker.on("message", (data) => {
-		console.log("the data is   :" + JSON.stringify(data));
+		// console.log(JSON.stringify(data));
+		console.log(data)
 	});
 	// worker2.on("message", (data) => {
 	// 	console.log("worker 2 :" + data);
@@ -35,8 +36,5 @@ const tradeAndMiner = async () => {
 
 tradeAndMiner();
 // generateRandomUsersAndStoreInDatabase();
-
-
-
 
 export { PeopleArray };

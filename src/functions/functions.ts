@@ -19,8 +19,8 @@ const getUsers = async () => {
 };
 
 // Function to get users with the lowesst balance and highest balance:
-const getLowestBiggest = async(arr:any) => {
-
+const getLowestBiggest = async (arr2: any) => {
+	let arr = JSON.parse(arr2) // because we JSONified it 
 	let smallestUser = arr[0];
 	let biggestUser = arr[0];
 	for (let i = 0; i < arr.length; i++) {
@@ -81,4 +81,4 @@ const myLoop = () => {
 
 // myLoop();
 
-export {getUsers, getLowestBiggest};
+export { getUsers, getLowestBiggest };

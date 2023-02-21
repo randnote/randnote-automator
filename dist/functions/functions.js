@@ -65,9 +65,11 @@ var getUsers = function () { return __awaiter(void 0, void 0, void 0, function (
 }); };
 exports.getUsers = getUsers;
 // Function to get users with the lowesst balance and highest balance:
-var getLowestBiggest = function (arr) { return __awaiter(void 0, void 0, void 0, function () {
-    var smallestUser, biggestUser, i, obj;
+var getLowestBiggest = function (arr2) { return __awaiter(void 0, void 0, void 0, function () {
+    var arr, smallestUser, biggestUser, i, obj;
     return __generator(this, function (_a) {
+        arr = JSON.parse(arr2) // because we JSONified it 
+        ;
         smallestUser = arr[0];
         biggestUser = arr[0];
         for (i = 0; i < arr.length; i++) {
