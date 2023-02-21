@@ -1,9 +1,8 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
-
 let users: any = [];
 
-const websiteTrader = async () => {
+const getUsers = async () => {
 	await Axios.get(`http://localhost:8024/userfindAutoGens`)
 		.then((res) => {
 			if (res.status == 200) {
@@ -19,16 +18,17 @@ const websiteTrader = async () => {
 	console.log(users[5]);
 };
 
-// funciton to get users with the lowesst balance and highest balance:
-const getLowestBiggest = () => {
-	let smallestUser = users[0];
-	let biggestUser = users[0];
-	for (let i = 0; i < users.length; i++) {
-		if (smallestUser.balance > users[i].balance) {
-			smallestUser = users[i];
+// Function to get users with the lowesst balance and highest balance:
+const getLowestBiggest = async(arr:any) => {
+
+	let smallestUser = arr[0];
+	let biggestUser = arr[0];
+	for (let i = 0; i < arr.length; i++) {
+		if (smallestUser.balance > arr[i].balance) {
+			smallestUser = arr[i];
 		}
-		if (biggestUser.balance < users[i].balance) {
-			biggestUser = users[i];
+		if (biggestUser.balance < arr[i].balance) {
+			biggestUser = arr[i];
 		}
 	}
 	let obj = {
@@ -39,7 +39,7 @@ const getLowestBiggest = () => {
 };
 
 /* 
-    value determiner function:
+    Value determiner function:
     this function gets the price and determines how many notes you should receive if you want to spend a partucular amount.
 */
 const valueDeterminer = () => {
@@ -48,11 +48,10 @@ const valueDeterminer = () => {
 	return value;
 };
 
-
 const myLoop = () => {
 	let i = 11;
 	setTimeout(() => {
-		console.log(getLowestBiggest()); // shows the lowest and hights user
+		// console.log(getLowestBiggest()); // shows the lowest and hights user
 
 		// make the highest user buy notes:
 		let biggestUser = getLowestBiggest["biggest"];
@@ -82,7 +81,4 @@ const myLoop = () => {
 
 // myLoop();
 
-
-export default websiteTrader;
-
-
+export {getUsers, getLowestBiggest};
