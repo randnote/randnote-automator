@@ -4,7 +4,7 @@ import {
 	Person,
 	StoreSudoInDB,
 } from "./nameGenerator";
-import websiteTrader from "./buysell";
+import websiteTrader from "./worker_buy";
 import connection from "./databaseConnector";
 import { Worker } from "worker_threads";
 let PeopleArray: Person[] = []; // array will store Person's
