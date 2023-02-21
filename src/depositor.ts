@@ -7,14 +7,10 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
 
-const func = ()=>{
- 
-    parentPort?.postMessage("depositor worker done")
-}
+const func = () => {
+	parentPort?.postMessage("depositor worker done");
+};
 
-setInterval(()=>{
-    func()
-}, 1000)
-
-
-
+setInterval(() => {
+	func();
+}, 1000);

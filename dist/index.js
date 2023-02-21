@@ -46,8 +46,8 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
     });
 }); };
 //generateRandomUsersAndStoreInDatabase();
-var worker = new worker_threads_1.Worker('./miner.js');
-var worker2 = new worker_threads_1.Worker('./depositor.js');
+var worker = new worker_threads_1.Worker("./worker_miner.js");
+var worker2 = new worker_threads_1.Worker("./depositor.js");
 // setTimeout(()=>{
 // 	console.log("print")
 // }), 3000;
@@ -56,16 +56,16 @@ var worker2 = new worker_threads_1.Worker('./depositor.js');
 // }, 1000);
 var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        worker.on('message', function (data) {
-            console.log('the data is   :' + data);
+        worker.on("message", function (data) {
+            console.log("the data is   :" + data);
         });
-        worker2.on('message', function (data) {
-            console.log('worker 2 :' + data);
+        worker2.on("message", function (data) {
+            console.log("worker 2 :" + data);
         });
-        worker.on('error', function (error) {
+        worker.on("error", function (error) {
             console.log(error);
         });
-        worker2.on('error', function (error) {
+        worker2.on("error", function (error) {
             console.log(error);
         });
         return [2 /*return*/];

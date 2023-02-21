@@ -7,22 +7,12 @@ import { parentPort } from "worker_threads";
 
 // const {ParentPort} = require('worker_threads')
 
-const func = ()=>{
-    let i = 0;
-    while(i < 300000){
-        i++
-    }
-    if(i === 30000){
-        parentPort?.postMessage("done "+ i)
-        return 100
-    }
-    return 100
-}
+const func = () => {
+	
+	parentPort?.postMessage("worker miner done ");
+	
+};
 
-setInterval(()=>{
-    func()
-}, 1000)
-// func()
-
-// parentPort?.postMessage(func())
-
+setInterval(() => {
+	func();
+}, 1000);
