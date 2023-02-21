@@ -13,9 +13,11 @@ const main = () => {
 	let object: any = {};
 	const getUsers = async () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
-			.then(async(res) => {
+			.then(async (res) => {
 				if (res.status == 200) {
-					let obj: any = await getLowestBiggest(JSON.stringify(res.data));
+					let obj: any = await getLowestBiggest(
+						JSON.stringify(res.data)
+					);
 					parentPort?.postMessage(obj);
 				}
 			})
@@ -29,4 +31,3 @@ const main = () => {
 setInterval(() => {
 	main();
 }, 1000);
-
