@@ -43,6 +43,7 @@ var axios_1 = __importDefault(require("axios"));
 var SHA256 = require("crypto-js/sha256");
 // import Block from "../block";
 // import { note } from "../controllers";
+// PLAN: JUST get random users, select 1, and just mine with that one user.
 var users = [];
 var main = function () {
     // this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
@@ -120,5 +121,5 @@ var mineBlock = function (publicAddress, privateAddress) { return __awaiter(void
 }); };
 // setInterval(() => {
 // 	main();
-// }, 1000);
+// }, 5000);
 //# sourceMappingURL=worker_miner.js.map

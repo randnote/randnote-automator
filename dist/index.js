@@ -36,11 +36,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PeopleArray = void 0;
+exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
 var nameGenerator_1 = require("./nameGenerator");
 var worker_threads_1 = require("worker_threads");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
+var GLOBAL_NUMBER_OF_USERS = 40;
+exports.GLOBAL_NUMBER_OF_USERS = GLOBAL_NUMBER_OF_USERS;
 var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -60,11 +62,12 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
 // instatiate the worker nodes:
 var minerWorker = new worker_threads_1.Worker("./worker_miner.js");
 var sendNotesWorker = new worker_threads_1.Worker("./worker_sendNotes.js");
-var buyWorker = new worker_threads_1.Worker("./worker_miner.js");
+var buyWorker = new worker_threads_1.Worker("./worker_buy.js");
 var sellWorker = new worker_threads_1.Worker("./worker_sell.js");
 var worker2 = new worker_threads_1.Worker("./depositor.js");
 var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
+        // successes
         minerWorker.on("message", function (data) {
             // console.log(JSON.stringify(data));
             console.log(data);
@@ -73,13 +76,21 @@ var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, funct
             // console.log(JSON.stringify(data));
             console.log(data);
         });
+        buyWorker.on("message", function (data) {
+            // console.log(JSON.stringify(data));
+            console.log(data);
+        });
         // worker2.on("message", (data) => {
         // 	console.log("worker 2 :" + data);
         // });
+        //errors
         minerWorker.on("error", function (error) {
             console.log(error);
         });
         sendNotesWorker.on("error", function (error) {
+            console.log(error);
+        });
+        buyWorker.on("error", function (error) {
             console.log(error);
         });
         return [2 /*return*/];

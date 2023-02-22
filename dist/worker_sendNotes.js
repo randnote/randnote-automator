@@ -40,6 +40,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
+var worker_threads_1 = require("worker_threads");
+var _1 = require(".");
 // plan:
 /*
     Excuse the mess....
@@ -59,18 +61,17 @@ var main = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                        var arr, randomNumber, randomNumberReciever, randomNumberReciever_1, chosenUserId, chosenReceiverId_1;
+                        var randomNumber, randomNumberReciever, chosenUserId, chosenReceiverId_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
                                     if (!(res.status == 200)) return [3 /*break*/, 2];
-                                    arr = res.data;
-                                    randomNumber = Math.floor(Math.random() * 40);
-                                    randomNumberReciever = Math.floor(Math.random() * 40);
+                                    randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
+                                    randomNumberReciever = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
                                     // following loop is to ensure that i get a new number that is not simmilar to my main number
                                     // to avoid user sending notes to themslevers.
                                     while (randomNumberReciever === randomNumber) {
-                                        randomNumberReciever_1 = Math.floor(Math.random() * 40);
+                                        randomNumberReciever = Math.floor(Math.random() * 40);
                                     }
                                     chosenUserId = res.data[randomNumber].id;
                                     chosenReceiverId_1 = res.data[randomNumberReciever].id;
@@ -97,8 +98,6 @@ var main = function () {
                                                                                     var usersBalance, calulatedNumberOfNotes, sendNotesObject, snack;
                                                                                     return __generator(this, function (_a) {
                                                                                         if (res.status == 200) {
-                                                                                            //console.log(res); // becase i received an array with one item.
-                                                                                            console.log(res.data.balance);
                                                                                             usersBalance = res.data.balance;
                                                                                             // now that we have their balance, we proceed, otherwise restart process
                                                                                             if (usersBalance > 5) {
@@ -119,7 +118,10 @@ var main = function () {
                                                                                                     // console.log(sendNotesObject);
                                                                                                     if (res.status ==
                                                                                                         200) {
-                                                                                                        console.log("The transaction is successful");
+                                                                                                        // console.log(
+                                                                                                        // 	"The transaction is successful"
+                                                                                                        // );
+                                                                                                        worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage("Send notes was successfull");
                                                                                                     }
                                                                                                 })
                                                                                                     .catch(function (err) {
@@ -172,7 +174,7 @@ var main = function () {
     }); };
     getUsers();
 };
-setInterval(function () {
-    main();
-}, 2000);
+// setInterval(() => {
+// 	main();
+// }, 2000);
 //# sourceMappingURL=worker_sendNotes.js.map

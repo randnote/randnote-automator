@@ -7,6 +7,8 @@ import { exit } from "process";
 // import Block from "../block";
 // import { note } from "../controllers";
 
+// PLAN: JUST get random users, select 1, and just mine with that one user.
+
 let users: any = [];
 
 const main = () => {
