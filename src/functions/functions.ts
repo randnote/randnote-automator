@@ -81,4 +81,7 @@ const myLoop = () => {
 
 // myLoop();
 
+// write get currentPrice() here:
+
+
 export { getUsers, getLowestBiggest };

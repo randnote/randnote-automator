@@ -2,35 +2,34 @@ import Axios from "axios";
 import { parentPort } from "worker_threads";
 import { GLOBAL_NUMBER_OF_USERS } from ".";
 
-import socketIOClient from "socket.io-client";
-const ENDPOINT = "http://127.0.0.1:8024";
+// import socketIOClient from "socket.io-client";
+// const ENDPOINT = "http://127.0.0.1:8024";
 
-/* 
-    BUYER PLANNER:
-    1. GENERATE/CALL ALL users, then just check balance, and buy.
-*/
 
-const pricer = () =>{
-    //console.log('pricer works')
-    const socket = socketIOClient(ENDPOINT);
-		socket.on("FromAPI", (data) => {
-            // console.log(data.price);
-            console.log(data)
-        })
-        // socket.on('connect_failed', function() {
-        //     console.log("Sorry, there seems to be an issue with the connection!");
-        //  })
+const getCurrentPrice = async() =>{
+    await Axios.get(
+        `http://localhost:8024/getCurrentPrice`
+    )
+    .then(async (res) => {
+        if (res.status == 200) {
+            console.log(res)
+        }
+    })
+    .catch((err) => {
+        console.log(err);
+    });
 }
+
+getCurrentPrice();
 
 // const main = () => {
 //     const getUsers = async () => {
 // 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 // 			.then(async (res) => {
 // 				if (res.status == 200) {
-// 					let randomNumber = Math.floor(Math.random() * GLOBAL_NUMBER_OF_USERS); 
+// 					let randomNumber = Math.floor(Math.random() * GLOBAL_NUMBER_OF_USERS);
 //                     let chosenUserId = res.data[randomNumber].id;
 //                     let chosenUserBalance = res.data[randomNumber].balance;
-                   
 
 //                     if(chosenUserBalance > 1000){
 
@@ -59,7 +58,6 @@ const pricer = () =>{
 //                         //     });
 //                     }
 
-
 //                 }
 //             })
 //             .catch(error =>{
@@ -70,9 +68,10 @@ const pricer = () =>{
 
 // }
 
+// setInterval(() => {
+// 	// 	main();
+// 	// console.log(pricer())
+// 	pricer();
+// }, 1000);
 
- setInterval(() => {
-// 	main();
-// console.log(pricer())
-    pricer();
-}, 1000);
+// pricer();

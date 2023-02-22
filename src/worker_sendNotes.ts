@@ -21,8 +21,12 @@ const main = () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-					let randomNumber = Math.floor(Math.random() * GLOBAL_NUMBER_OF_USERS); // assuming we have 40 users in the app
-					let randomNumberReciever = Math.floor(Math.random() * GLOBAL_NUMBER_OF_USERS);
+					let randomNumber = Math.floor(
+						Math.random() * GLOBAL_NUMBER_OF_USERS
+					); // assuming we have 40 users in the app
+					let randomNumberReciever = Math.floor(
+						Math.random() * GLOBAL_NUMBER_OF_USERS
+					);
 
 					// following loop is to ensure that i get a new number that is not simmilar to my main number
 					// to avoid user sending notes to themslevers.
