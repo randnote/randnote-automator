@@ -9,7 +9,6 @@ import { exit } from "process";
 
 let users: any = [];
 
-
 const main = () => {
 	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
 	let object: any = {};
@@ -22,9 +21,7 @@ const main = () => {
 					// 	JSON.stringify(res.data)
 					// );
 					// parentPort?.postMessage(obj);
-
 					// call axios to get the users keys.... using his email
-
 					//await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
 				}
 			})
