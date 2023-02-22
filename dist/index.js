@@ -58,18 +58,28 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
     });
 }); };
 // instatiate the worker nodes:
-var worker = new worker_threads_1.Worker("./worker_miner.js");
+var minerWorker = new worker_threads_1.Worker("./worker_miner.js");
+var sendNotesWorker = new worker_threads_1.Worker("./worker_sendNotes.js");
+var buyWorker = new worker_threads_1.Worker("./worker_miner.js");
+var sellWorker = new worker_threads_1.Worker("./worker_sell.js");
 var worker2 = new worker_threads_1.Worker("./depositor.js");
 var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        worker.on("message", function (data) {
+        minerWorker.on("message", function (data) {
+            // console.log(JSON.stringify(data));
+            console.log(data);
+        });
+        sendNotesWorker.on("message", function (data) {
             // console.log(JSON.stringify(data));
             console.log(data);
         });
         // worker2.on("message", (data) => {
         // 	console.log("worker 2 :" + data);
         // });
-        worker.on("error", function (error) {
+        minerWorker.on("error", function (error) {
+            console.log(error);
+        });
+        sendNotesWorker.on("error", function (error) {
             console.log(error);
         });
         return [2 /*return*/];

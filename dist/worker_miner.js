@@ -40,13 +40,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
-var worker_threads_1 = require("worker_threads");
-var functions_1 = require("./functions/functions");
+var SHA256 = require("crypto-js/sha256");
+// import Block from "../block";
+// import { note } from "../controllers";
 var users = [];
-/*
-    Call the API and get the users(), then call blockchain - for all users determine who has the lowest notes...
-    Then take that user and mine with them....
-*/
 var main = function () {
     // this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
     var object = {};
@@ -55,18 +52,17 @@ var main = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                        var obj;
                         return __generator(this, function (_a) {
-                            switch (_a.label) {
-                                case 0:
-                                    if (!(res.status == 200)) return [3 /*break*/, 2];
-                                    return [4 /*yield*/, (0, functions_1.getLowestBiggest)(JSON.stringify(res.data))];
-                                case 1:
-                                    obj = _a.sent();
-                                    worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage(obj);
-                                    _a.label = 2;
-                                case 2: return [2 /*return*/];
+                            if (res.status == 200) {
+                                // BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
+                                // let obj: any = await getLowestBiggest(
+                                // 	JSON.stringify(res.data)
+                                // );
+                                // parentPort?.postMessage(obj);
+                                // call axios to get the users keys.... using his email
+                                //await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
                             }
+                            return [2 /*return*/];
                         });
                     }); })
                         .catch(function (err) {
@@ -80,7 +76,49 @@ var main = function () {
     }); };
     getUsers();
 };
-setInterval(function () {
-    main();
-}, 1000);
+var calculateHash = function (timestamp, previousHash, transactions, nonce) {
+    return SHA256(timestamp + previousHash + JSON.stringify(transactions) + nonce).toString();
+};
+var mineBlock = function (publicAddress, privateAddress) { return __awaiter(void 0, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        // first get the block:
+        axios_1.default.get("http://localhost:8033/mine/".concat(publicAddress, "/0")).then(function (response) { return __awaiter(void 0, void 0, void 0, function () {
+            var block, difficulty, hash;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log(response.status);
+                        if (response.status === 204) {
+                            console.log("There arent transactions to mine! Give it time & try again next time!");
+                            process.exit(1);
+                        }
+                        return [4 /*yield*/, response.data.block];
+                    case 1:
+                        block = _a.sent();
+                        difficulty = 2;
+                        console.log(block);
+                        console.log("---");
+                        return [4 /*yield*/, calculateHash(block.timestamp, block.previousHash, block.transactions, block.nonce)];
+                    case 2:
+                        hash = _a.sent();
+                        console.log("Mining...");
+                        while (hash.substring(0, difficulty) != Array(difficulty + 1).join("0")) {
+                            block["nonce"]++;
+                            hash = calculateHash(block.timestamp, block.previousHash, block.transactions, block.nonce);
+                        }
+                        console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
+                        // now send to the server:
+                        axios_1.default.get("http://localhost:8033/mine/".concat(publicAddress, "/").concat(hash)).then(function (response) {
+                            console.log(response.data);
+                        });
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+        return [2 /*return*/];
+    });
+}); };
+// setInterval(() => {
+// 	main();
+// }, 1000);
 //# sourceMappingURL=worker_miner.js.map

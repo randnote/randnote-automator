@@ -9,10 +9,6 @@ import { exit } from "process";
 
 let users: any = [];
 
-/* 
-    Call the API and get the users(), then call blockchain - for all users determine who has the lowest notes...
-    Then take that user and mine with them....
-*/
 
 const main = () => {
 	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
@@ -21,17 +17,15 @@ const main = () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-
-                    // BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
+					// BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
 					// let obj: any = await getLowestBiggest(
 					// 	JSON.stringify(res.data)
 					// );
 					// parentPort?.postMessage(obj);
 
+					// call axios to get the users keys.... using his email
 
-                    // call axios to get the users keys.... using his email
-
-                    await mineBlock("sdf", "sdf");  // i need to stash this with the public and private keys....
+					//await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
 				}
 			})
 			.catch((err) => {
@@ -40,7 +34,6 @@ const main = () => {
 	};
 	getUsers();
 };
-
 
 const calculateHash = (
 	timestamp: any,
@@ -53,7 +46,7 @@ const calculateHash = (
 	).toString();
 };
 
-const mineBlock = async (publicAddress: any, privateAddress:any) => {
+const mineBlock = async (publicAddress: any, privateAddress: any) => {
 	// first get the block:
 	Axios.get(`http://localhost:8033/mine/${publicAddress}/0`).then(
 		async (response: any) => {
@@ -93,15 +86,15 @@ const mineBlock = async (publicAddress: any, privateAddress:any) => {
 			console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
 
 			// now send to the server:
-			Axios.get(`http://localhost:8033/mine/${publicAddress}/${hash}`).then(
-				(response: any) => {
-					console.log(response.data);
-				}
-			);
+			Axios.get(
+				`http://localhost:8033/mine/${publicAddress}/${hash}`
+			).then((response: any) => {
+				console.log(response.data);
+			});
 		}
 	);
 };
 
-setInterval(() => {
-	main();
-}, 1000);
+// setInterval(() => {
+// 	main();
+// }, 1000);
