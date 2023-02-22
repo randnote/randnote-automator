@@ -1,6 +1,5 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
-import { getLowestBiggest } from "./functions/functions";
 
 // plan:
 /*
@@ -13,7 +12,7 @@ import { getLowestBiggest } from "./functions/functions";
     3. If the sender's notes is too low, then dont send anything.
     4. Repeat.
     5. This app will be testable only when the other worker noted start working too(to increase cashflow in the market).
-*/ 
+*/
 const main = () => {
 	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
 
@@ -21,14 +20,13 @@ const main = () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-					let arr: [] = res.data;
 					let randomNumber = Math.floor(Math.random() * 40); // assuming we have 40 users in the app
 					let randomNumberReciever = Math.floor(Math.random() * 40);
 
 					// following loop is to ensure that i get a new number that is not simmilar to my main number
 					// to avoid user sending notes to themslevers.
 					while (randomNumberReciever === randomNumber) {
-						let randomNumberReciever = Math.floor(
+						randomNumberReciever = Math.floor(
 							Math.random() * 40
 						);
 					}
@@ -58,10 +56,8 @@ const main = () => {
 										)
 											.then(async (res) => {
 												if (res.status == 200) {
-													console.log(res); // becase i received an array with one item.
-													console.log(
-														res.data.balance
-													);
+													//console.log(res); // becase i received an array with one item.
+													
 													let usersBalance =
 														res.data.balance;
 
@@ -100,9 +96,10 @@ const main = () => {
 																	res.status ==
 																	200
 																) {
-																	console.log(
-																		"The transaction is successful"
-																	);
+																	// console.log(
+																	// 	"The transaction is successful"
+																	// );
+                                                                    parentPort?.postMessage('Send notes was successfull');
 																}
 															})
 															.catch((err) => {
@@ -134,6 +131,6 @@ const main = () => {
 	getUsers();
 };
 
-setInterval(() => {
-	main();
-}, 2000);
+// setInterval(() => {
+// 	main();
+// }, 2000);

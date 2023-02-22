@@ -94,4 +94,4 @@ const mineBlock = async (publicAddress: any, privateAddress: any) => {
 
 // setInterval(() => {
 // 	main();
-// }, 1000);
+// }, 5000);

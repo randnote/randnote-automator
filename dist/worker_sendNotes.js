@@ -41,50 +41,109 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var axios_1 = __importDefault(require("axios"));
 // plan:
-// 1. get autogens, 2. use their ids to get their keys... 3. use keys to determine if user is worth sending notes to another...
-//  1. get autogens 2. select randnom gen, get their keys, and check their balance and if balance > ... , then make a sendNotesTransaction
+/*
+    Excuse the mess....
+    I write spaghetti code here because I dont have one API endpoint which gets me the users with their addresses and balances...
+    So I resort to a new method, which i might or not use in other workers
+
+    1. When generating users, generate 2, one will be the sender and the other is the receiver.
+    2. Send their info down the apis untill i can send notes to the user.
+    3. If the sender's notes is too low, then dont send anything.
+    4. Repeat.
+    5. This app will be testable only when the other worker noted start working too(to increase cashflow in the market).
+*/
 var main = function () {
     // this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
-    var object = {};
-    var keyedArrayOfObjects;
     var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                        var arr, randomNumber, chosenUserId;
+                        var arr, randomNumber, randomNumberReciever, randomNumberReciever_1, chosenUserId, chosenReceiverId_1;
                         return __generator(this, function (_a) {
                             switch (_a.label) {
                                 case 0:
                                     if (!(res.status == 200)) return [3 /*break*/, 2];
                                     arr = res.data;
-                                    randomNumber = Math.floor(Math.random() * 10);
+                                    randomNumber = Math.floor(Math.random() * 40);
+                                    randomNumberReciever = Math.floor(Math.random() * 40);
+                                    // following loop is to ensure that i get a new number that is not simmilar to my main number
+                                    // to avoid user sending notes to themslevers.
+                                    while (randomNumberReciever === randomNumber) {
+                                        randomNumberReciever_1 = Math.floor(Math.random() * 40);
+                                    }
                                     chosenUserId = res.data[randomNumber].id;
+                                    chosenReceiverId_1 = res.data[randomNumberReciever].id;
                                     // call api to get the users keys:
                                     return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId))
                                             .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                                            var publicAddress;
+                                            var publicAddress_1, privateAddress_1;
                                             return __generator(this, function (_a) {
                                                 switch (_a.label) {
                                                     case 0:
                                                         if (!(res.status == 200)) return [3 /*break*/, 2];
-                                                        publicAddress = res.data[0].publicKey;
-                                                        // now call api that checks their balance and make comparison, otherwise restart process
-                                                        return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress))
+                                                        publicAddress_1 = res.data[0].publicKey;
+                                                        privateAddress_1 = res.data[0].privateKey;
+                                                        // where the CORE spaghetti code starts:
+                                                        return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenReceiverId_1))
                                                                 .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                                                                var publicAddressReciever;
                                                                 return __generator(this, function (_a) {
-                                                                    if (res.status == 200) {
-                                                                        console.log(res); // becase i received an array with one item.
-                                                                        console.log(res.data.balance);
+                                                                    switch (_a.label) {
+                                                                        case 0:
+                                                                            publicAddressReciever = res.data[0].publicKey;
+                                                                            return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress_1))
+                                                                                    .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                                                                                    var usersBalance, calulatedNumberOfNotes, sendNotesObject, snack;
+                                                                                    return __generator(this, function (_a) {
+                                                                                        if (res.status == 200) {
+                                                                                            //console.log(res); // becase i received an array with one item.
+                                                                                            console.log(res.data.balance);
+                                                                                            usersBalance = res.data.balance;
+                                                                                            // now that we have their balance, we proceed, otherwise restart process
+                                                                                            if (usersBalance > 5) {
+                                                                                                calulatedNumberOfNotes = (usersBalance *
+                                                                                                    20) /
+                                                                                                    100;
+                                                                                                sendNotesObject = {
+                                                                                                    fromAddress: publicAddress_1,
+                                                                                                    toAddress: publicAddressReciever,
+                                                                                                    amount: calulatedNumberOfNotes,
+                                                                                                    fromAddressPrivateKey: privateAddress_1,
+                                                                                                };
+                                                                                                snack = JSON.stringify(sendNotesObject);
+                                                                                                axios_1.default.post("http://localhost:8033/transaction", {
+                                                                                                    obj: snack,
+                                                                                                })
+                                                                                                    .then(function (res) {
+                                                                                                    // console.log(sendNotesObject);
+                                                                                                    if (res.status ==
+                                                                                                        200) {
+                                                                                                        console.log("The transaction is successful");
+                                                                                                    }
+                                                                                                })
+                                                                                                    .catch(function (err) {
+                                                                                                    console.log(err);
+                                                                                                });
+                                                                                            }
+                                                                                        }
+                                                                                        return [2 /*return*/];
+                                                                                    });
+                                                                                }); })
+                                                                                    .catch(function (err) {
+                                                                                    console.log(err);
+                                                                                })];
+                                                                        case 1:
+                                                                            _a.sent();
+                                                                            return [2 /*return*/];
                                                                     }
-                                                                    return [2 /*return*/];
                                                                 });
                                                             }); })
                                                                 .catch(function (err) {
                                                                 console.log(err);
                                                             })];
                                                     case 1:
-                                                        // now call api that checks their balance and make comparison, otherwise restart process
+                                                        // where the CORE spaghetti code starts:
                                                         _a.sent();
                                                         _a.label = 2;
                                                     case 2: return [2 /*return*/];
