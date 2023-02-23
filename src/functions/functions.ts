@@ -18,6 +18,20 @@ const getUsers = async () => {
 	console.log(users[5]);
 };
 
+const getCurrentPrice = async () => {
+	await Axios.get(`http://localhost:8024/getCurrentPrice`)
+		.then(async (res) => {
+			if (res.status == 200) {
+				console.log(res);
+			}
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+};
+
+getCurrentPrice();
+
 // Function to get users with the lowesst balance and highest balance:
 const getLowestBiggest = async (arr2: any) => {
 	let arr = JSON.parse(arr2); // because we JSONified it
@@ -82,6 +96,5 @@ const myLoop = () => {
 // myLoop();
 
 // write get currentPrice() here:
-
 
 export { getUsers, getLowestBiggest };

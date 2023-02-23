@@ -6,21 +6,6 @@ import { GLOBAL_NUMBER_OF_USERS } from ".";
 // const ENDPOINT = "http://127.0.0.1:8024";
 
 
-const getCurrentPrice = async() =>{
-    await Axios.get(
-        `http://localhost:8024/getCurrentPrice`
-    )
-    .then(async (res) => {
-        if (res.status == 200) {
-            console.log(res)
-        }
-    })
-    .catch((err) => {
-        console.log(err);
-    });
-}
-
-getCurrentPrice();
 
 // const main = () => {
 //     const getUsers = async () => {

@@ -1,38 +1,11 @@
 import Axios from "axios";
-import { parentPort } from "worker_threads";
-import { getLowestBiggest } from "./functions/functions";
 const SHA256 = require("crypto-js/sha256");
-import { response } from "express";
-import { exit } from "process";
-// import Block from "../block";
-// import { note } from "../controllers";
 
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 
 let users: any = [];
 
-const main = () => {
-	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
-	let object: any = {};
-	const getUsers = async () => {
-		await Axios.get(`http://localhost:8024/userfindAutoGens`)
-			.then(async (res) => {
-				if (res.status == 200) {
-					// BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
-					// let obj: any = await getLowestBiggest(
-					// 	JSON.stringify(res.data)
-					// );
-					// parentPort?.postMessage(obj);
-					// call axios to get the users keys.... using his email
-					//await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
-				}
-			})
-			.catch((err) => {
-				console.log(err);
-			});
-	};
-	getUsers();
-};
+
 
 const calculateHash = (
 	timestamp: any,
@@ -94,6 +67,27 @@ const mineBlock = async (publicAddress: any, privateAddress: any) => {
 	);
 };
 
-// setInterval(() => {
-// 	main();
-// }, 5000);
+const main = () => {
+	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
+	let object: any = {};
+	const getUsers = async () => {
+		await Axios.get(`http://localhost:8024/userfindAutoGens`)
+			.then(async (res) => {
+				if (res.status == 200) {
+					// BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
+					// let obj: any = await getLowestBiggest(
+					// 	JSON.stringify(res.data)
+					// );
+					// parentPort?.postMessage(obj);
+					// call axios to get the users keys.... using his email
+					//await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+	getUsers();
+};
+
+export {main};
