@@ -35,23 +35,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
 var nameGenerator_1 = require("./nameGenerator");
-var express_1 = __importDefault(require("express"));
-var cors = require("cors");
-var bodyParser = require("body-parser");
-var app = (0, express_1.default)();
-app.use(express_1.default.urlencoded());
-app.use(express_1.default.json());
-var worker_threads_1 = require("worker_threads");
+var functions_1 = require("./functions/functions");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
 var GLOBAL_NUMBER_OF_USERS = 40;
 exports.GLOBAL_NUMBER_OF_USERS = GLOBAL_NUMBER_OF_USERS;
+// function I run when i want to populate db with fake users:
 var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -68,61 +60,12 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
         }
     });
 }); };
-// instatiate the worker nodes:
-var minerWorker = new worker_threads_1.Worker("./worker_miner.js");
-var sendNotesWorker = new worker_threads_1.Worker("./worker_sendNotes.js");
-var buyWorker = new worker_threads_1.Worker("./worker_buy.js");
-var sellWorker = new worker_threads_1.Worker("./worker_sell.js");
-var worker2 = new worker_threads_1.Worker("./depositor.js");
-var tradeAndMiner = function () { return __awaiter(void 0, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        // successes
-        // minerWorker.on("message", (data) => {
-        // 	// console.log(JSON.stringify(data));
-        // 	console.log(data);
-        // });
-        // sendNotesWorker.on("message", (data) => {
-        // 	// console.log(JSON.stringify(data));
-        // 	console.log(data);
-        // });
-        buyWorker.on("message", function (data) {
-            // console.log(JSON.stringify(data));
-            console.log(data);
-        });
-        // worker2.on("message", (data) => {
-        // 	console.log("worker 2 :" + data);
-        // });
-        //errors
-        // minerWorker.on("error", (error) => {
-        // 	console.log(error);
-        // });
-        // sendNotesWorker.on("error", (error) => {
-        // 	console.log(error);
-        // });
-        buyWorker.on("error", function (error) {
-            console.log(error);
-        });
-        return [2 /*return*/];
+var main = function () {
+    //
+    // worker_miner();
+    (0, functions_1.getCurrentPrice)().then(function (res) {
+        console.log(res);
     });
-}); };
-tradeAndMiner();
-var allowedOrigins = ["http://localhost:3000", "http://locahost:3000/admin"];
-app.use(cors({
-    origin: function (origin, callback) {
-        // allow requests with no origin
-        // (like mobile apps or curl requests)
-        if (!origin) {
-            return callback(null, true);
-        }
-        if (allowedOrigins.indexOf(origin) === -1) {
-            var msg = "The CORS policy for this site does not " +
-                "allow access from the specified Origin.";
-            // return callback(new Error(msg), false);
-            return callback(null, true); // allow all of em
-        }
-        return callback(null, true);
-    },
-}));
-// require("./routes/index")(app);
-app.listen(8011, function () { return console.log("server started on port 8011"); });
+};
+main();
 //# sourceMappingURL=index.js.map

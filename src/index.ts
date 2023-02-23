@@ -1,17 +1,13 @@
 import express, { Application, Request, Response, NextFunction } from "express";
-import {main as worker_miner} from './worker_miner';
+import { main as worker_miner } from "./worker_miner";
 import {
 	generator,
 	storeInDatabase,
 	Person,
 	StoreSudoInDB,
 } from "./nameGenerator";
+import { getCurrentPrice } from "./functions/functions";
 
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const app: Application = express();
-app.use(express.urlencoded());
-app.use(express.json());
 
 let PeopleArray: Person[] = []; // array will store Person's
 let GLOBAL_NUMBER_OF_USERS = 40;
@@ -26,13 +22,15 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 
 
 
-const main = () =>{
+const main = () => {
 	//
 	// worker_miner();
-}
+	getCurrentPrice().then((res)=>{
+		console.log(res)
+	})
+};
 
 main();
 // generateRandomUsersAndStoreInDatabase();
 
 export { PeopleArray, GLOBAL_NUMBER_OF_USERS };
-

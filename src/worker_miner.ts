@@ -5,8 +5,6 @@ const SHA256 = require("crypto-js/sha256");
 
 let users: any = [];
 
-
-
 const calculateHash = (
 	timestamp: any,
 	previousHash: any,
@@ -90,4 +88,4 @@ const main = () => {
 	getUsers();
 };
 
-export {main};
+export { main };

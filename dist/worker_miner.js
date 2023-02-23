@@ -39,44 +39,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var SHA256 = require("crypto-js/sha256");
-// import Block from "../block";
-// import { note } from "../controllers";
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 var users = [];
-var main = function () {
-    // this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
-    var object = {};
-    var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
-                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                        return __generator(this, function (_a) {
-                            if (res.status == 200) {
-                                // BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
-                                // let obj: any = await getLowestBiggest(
-                                // 	JSON.stringify(res.data)
-                                // );
-                                // parentPort?.postMessage(obj);
-                                // call axios to get the users keys.... using his email
-                                //await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
-                            }
-                            return [2 /*return*/];
-                        });
-                    }); })
-                        .catch(function (err) {
-                        console.log(err);
-                    })];
-                case 1:
-                    _a.sent();
-                    return [2 /*return*/];
-            }
-        });
-    }); };
-    getUsers();
-};
 var calculateHash = function (timestamp, previousHash, transactions, nonce) {
     return SHA256(timestamp + previousHash + JSON.stringify(transactions) + nonce).toString();
 };
@@ -119,7 +86,37 @@ var mineBlock = function (publicAddress, privateAddress) { return __awaiter(void
         return [2 /*return*/];
     });
 }); };
-// setInterval(() => {
-// 	main();
-// }, 5000);
+var main = function () {
+    // this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
+    var object = {};
+    var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                        return __generator(this, function (_a) {
+                            if (res.status == 200) {
+                                // BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
+                                // let obj: any = await getLowestBiggest(
+                                // 	JSON.stringify(res.data)
+                                // );
+                                // parentPort?.postMessage(obj);
+                                // call axios to get the users keys.... using his email
+                                //await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
+                            }
+                            return [2 /*return*/];
+                        });
+                    }); })
+                        .catch(function (err) {
+                        console.log(err);
+                    })];
+                case 1:
+                    _a.sent();
+                    return [2 /*return*/];
+            }
+        });
+    }); };
+    getUsers();
+};
+exports.main = main;
 //# sourceMappingURL=worker_miner.js.map

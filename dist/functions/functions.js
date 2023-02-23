@@ -39,7 +39,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getLowestBiggest = exports.getUsers = void 0;
+exports.getCurrentPrice = exports.getLowestBiggest = exports.getUsers = void 0;
 var axios_1 = __importDefault(require("axios"));
 var users = [];
 var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -64,6 +64,30 @@ var getUsers = function () { return __awaiter(void 0, void 0, void 0, function (
     });
 }); };
 exports.getUsers = getUsers;
+var getCurrentPrice = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var promise;
+    return __generator(this, function (_a) {
+        promise = new Promise(function (resolve, reject) {
+            axios_1.default.get("http://localhost:8024/getCurrentPrice")
+                .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                return __generator(this, function (_a) {
+                    if (res.status == 200) {
+                        // console.log(res);
+                        resolve(res);
+                        // return res;
+                    }
+                    return [2 /*return*/];
+                });
+            }); })
+                .catch(function (err) {
+                reject(err);
+                // console.log(err);
+            });
+        });
+        return [2 /*return*/, promise];
+    });
+}); };
+exports.getCurrentPrice = getCurrentPrice;
 // Function to get users with the lowesst balance and highest balance:
 var getLowestBiggest = function (arr2) { return __awaiter(void 0, void 0, void 0, function () {
     var arr, smallestUser, biggestUser, i, obj;

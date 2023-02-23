@@ -5,8 +5,6 @@ import { GLOBAL_NUMBER_OF_USERS } from ".";
 // import socketIOClient from "socket.io-client";
 // const ENDPOINT = "http://127.0.0.1:8024";
 
-
-
 // const main = () => {
 //     const getUsers = async () => {
 // 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
