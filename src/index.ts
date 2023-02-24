@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import { main as worker_miner } from "./worker_miner";
+import {main as worker_buyer} from './worker_buy'
 import {
 	generator,
 	storeInDatabase,
@@ -19,11 +20,16 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 };
 
 const main = () => {
-	//
 	// worker_miner();
-	getCurrentPrice().then((res:any) => {
+	getCurrentPrice().then((res: any) => {
 		console.log(res.data.data);
 	});
+
+	// buyer worker here:
+	// setInterval(()=>{
+	// 	 worker_buyer();
+	// }, 3000)
+	worker_buyer()
 };
 
 main();

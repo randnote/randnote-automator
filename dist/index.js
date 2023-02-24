@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
+var worker_buy_1 = require("./worker_buy");
 var nameGenerator_1 = require("./nameGenerator");
 var functions_1 = require("./functions/functions");
 var PeopleArray = []; // array will store Person's
@@ -61,11 +62,15 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
     });
 }); };
 var main = function () {
-    //
     // worker_miner();
     (0, functions_1.getCurrentPrice)().then(function (res) {
         console.log(res.data.data);
     });
+    // buyer worker here:
+    // setInterval(()=>{
+    // 	 worker_buyer();
+    // }, 3000)
+    (0, worker_buy_1.main)();
 };
 main();
 //# sourceMappingURL=index.js.map
