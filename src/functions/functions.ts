@@ -19,23 +19,23 @@ const getUsers = async () => {
 };
 
 const getCurrentPrice = async () => {
-	const promise = new Promise( (resolve:any, reject:any)=>{
+	const promise = new Promise((resolve: any, reject: any) => {
 		Axios.get(`http://localhost:8024/getCurrentPrice`)
-		.then(async (res) => {
-			if (res.status == 200) {
-				// console.log(res);
+			.then(async (res) => {
+				// if (res.status == 200) {
+				// 	// console.log(res);
+				// 	resolve(res);
+				// 	// return res;
+				// }
 				resolve(res)
-				// return res;
-			}
-		})
-		.catch((err) => {
-			reject(err)
-			// console.log(err);
-		});
-	})
+			})
+			.catch((err) => {
+				reject(err);
+				// console.log(err);
+			});
+	});
 	return promise;
 };
-
 
 // Function to get users with the lowesst balance and highest balance:
 const getLowestBiggest = async (arr2: any) => {
@@ -102,4 +102,4 @@ const myLoop = () => {
 
 // write get currentPrice() here:
 
-export { getUsers, getLowestBiggest , getCurrentPrice};
+export { getUsers, getLowestBiggest, getCurrentPrice };

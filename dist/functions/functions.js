@@ -71,11 +71,12 @@ var getCurrentPrice = function () { return __awaiter(void 0, void 0, void 0, fun
             axios_1.default.get("http://localhost:8024/getCurrentPrice")
                 .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
-                    if (res.status == 200) {
-                        // console.log(res);
-                        resolve(res);
-                        // return res;
-                    }
+                    // if (res.status == 200) {
+                    // 	// console.log(res);
+                    // 	resolve(res);
+                    // 	// return res;
+                    // }
+                    resolve(res);
                     return [2 /*return*/];
                 });
             }); })

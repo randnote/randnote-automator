@@ -64,7 +64,7 @@ var main = function () {
     //
     // worker_miner();
     (0, functions_1.getCurrentPrice)().then(function (res) {
-        console.log(res);
+        console.log(res.data.data);
     });
 };
 main();

@@ -8,7 +8,6 @@ import {
 } from "./nameGenerator";
 import { getCurrentPrice } from "./functions/functions";
 
-
 let PeopleArray: Person[] = []; // array will store Person's
 let GLOBAL_NUMBER_OF_USERS = 40;
 
@@ -19,15 +18,12 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 	await storeInDatabase();
 };
 
-
-
-
 const main = () => {
 	//
 	// worker_miner();
-	getCurrentPrice().then((res)=>{
-		console.log(res)
-	})
+	getCurrentPrice().then((res:any) => {
+		console.log(res.data.data);
+	});
 };
 
 main();
