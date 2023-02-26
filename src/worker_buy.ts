@@ -7,53 +7,55 @@ import { getCurrentPrice } from "./functions/functions";
 const ENDPOINT = "http://127.0.0.1:8024";
 
 const main = () => {
-    const getUsers = async () => {
+	const getUsers = async () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-					let randomNumber = Math.floor(Math.random() * GLOBAL_NUMBER_OF_USERS);
-                    let chosenUserId = res.data[randomNumber].id;
-                    let chosenUserBalance = res.data[randomNumber].balance;
+					let randomNumber = Math.floor(
+						Math.random() * GLOBAL_NUMBER_OF_USERS
+					);
+					let chosenUserId = res.data[randomNumber].id;
+					let chosenUserBalance = res.data[randomNumber].balance;
 
-                    let GeneratedNotes = 0;
-                    let GeneratedPrice = 0;
+					console.log(chosenUserId)
 
-                    if(chosenUserBalance > 1000){
-                        getCurrentPrice().then((res:number) =>{
-                            GeneratedPrice = res;
-                            GeneratedNotes = GeneratedPrice * chosenUserBalance;
+					let GeneratedNotes = 0;
+					let GeneratedPrice:any = 0;
 
-                            // call api here....
-                            let orderObject = {
-                                user_id: chosenUserId,
-                                price: GeneratedPrice, 
-                                ordertype: "buy",
-                                amount: chosenUserBalance,
-                                notes: GeneratedNotes,
-                            };
+					if (chosenUserBalance > 1000) {
+						getCurrentPrice().then((res: number) => {
+							GeneratedPrice = res;
+							GeneratedNotes = chosenUserBalance  / GeneratedPrice.data.data ;
 
-                            Axios.post(`http://localhost:8024/transactionWebsite`, orderObject)
-                                .then((res) => {
-                                    console.log("Transaction made");
-                                    console.log(res)
-                                    // handleCloseNotes();
-                                    // handleClose();
-                                })
-                                .catch((err) => {
-                                    console.log(err);
-                                });
-                        }); 
+							// call api here....
+							let orderObject = {
+								user_id: chosenUserId,
+								price: GeneratedPrice.data.data,
+								ordertype: "buy",
+								amount: chosenUserBalance,
+								notes: GeneratedNotes,
+							};
 
-                    }
-
-                }
-            })
-            .catch(error =>{
-                console.log(error);
-            })
+							Axios.post(
+								`http://localhost:8024/transactionWebsite`,
+								orderObject
+							)
+								.then((res) => {
+									console.log("Transaction made");
+									console.log(res);
+								})
+								.catch((err) => {
+									console.log(err);
+								});
+						});
+					}
+				}
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 	getUsers();
+};
 
-}
-
-export {main};
+export { main };

@@ -56,26 +56,27 @@ var main = function () {
                                 randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
                                 chosenUserId_1 = res.data[randomNumber].id;
                                 chosenUserBalance_1 = res.data[randomNumber].balance;
+                                console.log(chosenUserId_1);
                                 GeneratedNotes_1 = 0;
                                 GeneratedPrice_1 = 0;
                                 if (chosenUserBalance_1 > 1000) {
                                     (0, functions_1.getCurrentPrice)().then(function (res) {
                                         GeneratedPrice_1 = res;
-                                        GeneratedNotes_1 = GeneratedPrice_1 * chosenUserBalance_1;
+                                        GeneratedNotes_1 = chosenUserBalance_1 / GeneratedPrice_1.data.data;
                                         // call api here....
                                         var orderObject = {
                                             user_id: chosenUserId_1,
-                                            price: GeneratedPrice_1,
+                                            price: GeneratedPrice_1.data.data,
                                             ordertype: "buy",
                                             amount: chosenUserBalance_1,
                                             notes: GeneratedNotes_1,
                                         };
+                                        console.log(orderObject);
+                                        // let cake = JSON.stringify(orderObject)
                                         axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
                                             .then(function (res) {
                                             console.log("Transaction made");
                                             console.log(res);
-                                            // handleCloseNotes();
-                                            // handleClose();
                                         })
                                             .catch(function (err) {
                                             console.log(err);
