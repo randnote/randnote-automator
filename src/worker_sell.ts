@@ -19,7 +19,7 @@ const main = () => {
 
 					let GeneratedNotes = 0;
 					let GeneratedPrice: any = await getCurrentPrice();
-                    // console.log(GeneratedPrice)
+					// console.log(GeneratedPrice)
 
 					// call api to get the users keys:
 					await Axios.get(
@@ -34,28 +34,31 @@ const main = () => {
 								)
 									.then(async (res) => {
 										if (res.status == 200) {
-											let userNotesBalance = res.data.balance;
+											let userNotesBalance =
+												res.data.balance;
 
 											// call api here....
-                                            let orderObject = {
-                                                user_id: chosenUserId,
-                                                price: GeneratedPrice.data.data,
-                                                ordertype: "sell",
-                                                amount: chosenUserBalance,
-                                                notes: GeneratedNotes,
-                                            };
+											let orderObject = {
+												user_id: chosenUserId,
+												price: GeneratedPrice.data.data,
+												ordertype: "sell",
+												amount: chosenUserBalance,
+												notes: GeneratedNotes,
+											};
 											if (userNotesBalance > 5) {
-                                                Axios.post(
-                                                    `http://localhost:8024/transactionWebsite`,
-                                                    orderObject
-                                                )
-                                                .then((res) => {
-                                                    console.log("Transaction made");
-                                                    console.log(res);
-                                                })
-                                                .catch((err) => {
-                                                    console.log(err);
-                                                });
+												Axios.post(
+													`http://localhost:8024/transactionWebsite`,
+													orderObject
+												)
+													.then((res) => {
+														console.log(
+															"Transaction made"
+														);
+														console.log(res);
+													})
+													.catch((err) => {
+														console.log(err);
+													});
 											}
 										}
 									})
@@ -67,11 +70,6 @@ const main = () => {
 						.catch((err) => {
 							console.log(err);
 						});
-
-					
-
-							
-					
 				}
 			})
 			.catch((error) => {

@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
+var worker_buy_1 = require("./worker_buy");
 var worker_sell_1 = require("./worker_sell");
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
@@ -61,17 +62,27 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
     });
 }); };
 var main = function () {
-    // worker_miner();
-    // getCurrentPrice().then((res: any) => {
-    // 	console.log(res.data.data);
-    // });
-    // worker_buyer();
-    (0, worker_sell_1.main)();
-    // buyer worker here:
-    // setInterval(()=>{
-    // 	 worker_buyer();
-    // }, 3000)
-    // worker_buyer();
+    setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
+        var l;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    l = true;
+                    if (!(l == true)) return [3 /*break*/, 2];
+                    return [4 /*yield*/, (0, worker_buy_1.main)()];
+                case 1:
+                    _a.sent();
+                    l = false;
+                    return [3 /*break*/, 4];
+                case 2: return [4 /*yield*/, (0, worker_sell_1.main)()];
+                case 3:
+                    _a.sent();
+                    l = true;
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
+            }
+        });
+    }); }, 3000);
 };
 main();
 //# sourceMappingURL=index.js.map

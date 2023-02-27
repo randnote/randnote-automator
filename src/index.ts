@@ -21,19 +21,20 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 };
 
 const main = () => {
-	// worker_miner();
-	// getCurrentPrice().then((res: any) => {
-	// 	console.log(res.data.data);
-	// });
 
-	// worker_buyer();
-	worker_sell();
+	setInterval(async()=>{
+		let l :boolean = true;
+		if(l == true){
+			await worker_buyer();
+			l = false;
+		}else{
+			await worker_sell();
+			l = true;
+		}
 
-	// buyer worker here:
-	// setInterval(()=>{
-	// 	 worker_buyer();
-	// }, 3000)
-	// worker_buyer();
+		
+		
+	}, 3000)
 };
 
 main();
