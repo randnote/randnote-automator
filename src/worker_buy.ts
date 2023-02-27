@@ -17,15 +17,16 @@ const main = () => {
 					let chosenUserId = res.data[randomNumber].id;
 					let chosenUserBalance = res.data[randomNumber].balance;
 
-					console.log(chosenUserId)
+					console.log(chosenUserId);
 
 					let GeneratedNotes = 0;
-					let GeneratedPrice:any = 0;
+					let GeneratedPrice: any = 0;
 
 					if (chosenUserBalance > 1000) {
 						getCurrentPrice().then((res: number) => {
 							GeneratedPrice = res;
-							GeneratedNotes = chosenUserBalance  / GeneratedPrice.data.data ;
+							GeneratedNotes =
+								chosenUserBalance / GeneratedPrice.data.data;
 
 							// call api here....
 							let orderObject = {
