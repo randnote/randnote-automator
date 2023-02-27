@@ -37,7 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
-var worker_buy_1 = require("./worker_buy");
+var worker_sell_1 = require("./worker_sell");
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
@@ -65,7 +65,8 @@ var main = function () {
     // getCurrentPrice().then((res: any) => {
     // 	console.log(res.data.data);
     // });
-    (0, worker_buy_1.main)();
+    // worker_buyer();
+    (0, worker_sell_1.main)();
     // buyer worker here:
     // setInterval(()=>{
     // 	 worker_buyer();

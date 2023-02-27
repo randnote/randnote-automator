@@ -62,7 +62,8 @@ var main = function () {
                                 if (chosenUserBalance_1 > 1000) {
                                     (0, functions_1.getCurrentPrice)().then(function (res) {
                                         GeneratedPrice_1 = res;
-                                        GeneratedNotes_1 = chosenUserBalance_1 / GeneratedPrice_1.data.data;
+                                        GeneratedNotes_1 =
+                                            chosenUserBalance_1 / GeneratedPrice_1.data.data;
                                         // call api here....
                                         var orderObject = {
                                             user_id: chosenUserId_1,
@@ -71,8 +72,6 @@ var main = function () {
                                             amount: chosenUserBalance_1,
                                             notes: GeneratedNotes_1,
                                         };
-                                        console.log(orderObject);
-                                        // let cake = JSON.stringify(orderObject)
                                         axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
                                             .then(function (res) {
                                             console.log("Transaction made");

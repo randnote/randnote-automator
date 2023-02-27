@@ -25,7 +25,7 @@ const main = () => {
 	// getCurrentPrice().then((res: any) => {
 	// 	console.log(res.data.data);
 	// });
-	
+
 	// worker_buyer();
 	worker_sell();
 
