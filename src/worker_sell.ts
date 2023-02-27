@@ -5,22 +5,24 @@ import { GLOBAL_NUMBER_OF_USERS } from ".";
 import { getCurrentPrice } from "./functions/functions";
 
 const main = () => {
+	console.log("def")
 	const getUsers = async () => {
+		console.log("arrived")
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-					let randomNumber = Math.floor(
+					let randomNumber = await Math.floor(
 						Math.random() * GLOBAL_NUMBER_OF_USERS
 					);
 					let chosenUserId = res.data[randomNumber].id;
 					let chosenUserBalance = res.data[randomNumber].balance;
 
-					console.log(chosenUserId);
+					
 
 					let GeneratedNotes = 0;
 					let GeneratedPrice: any = await getCurrentPrice();
 					// console.log(GeneratedPrice)
-
+					// console.log("arrived 2")
 					// call api to get the users keys:
 					await Axios.get(
 						`http://localhost:8024/getKeys/${chosenUserId}`
@@ -28,7 +30,7 @@ const main = () => {
 						.then(async (res) => {
 							if (res.status == 200) {
 								let publicAddress = res.data[0].publicKey;
-
+								console.log(res)
 								await Axios.get(
 									`http://localhost:8033/balance/${publicAddress}`
 								)
@@ -36,7 +38,7 @@ const main = () => {
 										if (res.status == 200) {
 											let userNotesBalance =
 												res.data.balance;
-
+											// console.log("arrived 3")
 											// call api here....
 											let orderObject = {
 												user_id: chosenUserId,
@@ -45,7 +47,10 @@ const main = () => {
 												amount: chosenUserBalance,
 												notes: GeneratedNotes,
 											};
+											// console.log(orderObject)
+											// console.log("has balance of : "+userNotesBalance)
 											if (userNotesBalance > 5) {
+												
 												Axios.post(
 													`http://localhost:8024/transactionWebsite`,
 													orderObject

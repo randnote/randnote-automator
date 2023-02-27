@@ -21,20 +21,22 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 };
 
 const main = () => {
-
-	setInterval(async()=>{
-		let l :boolean = true;
-		if(l == true){
-			await worker_buyer();
-			l = false;
-		}else{
-			await worker_sell();
-			l = true;
-		}
-
+	let l: boolean = true;
+	// setInterval(async () => {
 		
-		
-	}, 3000)
+	// 	if (l == true) {
+	// 		await worker_buyer();
+	// 		l = false;
+	// 	} else {
+	// 		await worker_sell();
+	// 		l = true;
+	// 	}
+	// }, 3000);
+	//  worker_buyer();
+// 
+	 setInterval(async()=>{
+		await worker_buyer();
+	 }, 3000)
 };
 
 main();
