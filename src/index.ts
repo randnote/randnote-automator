@@ -23,7 +23,7 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 const main = () => {
 	let l: boolean = true;
 	// setInterval(async () => {
-		
+
 	// 	if (l == true) {
 	// 		await worker_buyer();
 	// 		l = false;
@@ -33,10 +33,10 @@ const main = () => {
 	// 	}
 	// }, 3000);
 	//  worker_buyer();
-// 
-	 setInterval(async()=>{
+	//
+	setInterval(async () => {
 		await worker_buyer();
-	 }, 3000)
+	}, 3000);
 };
 
 main();

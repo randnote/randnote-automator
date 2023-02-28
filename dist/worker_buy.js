@@ -50,52 +50,53 @@ var main = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                        var randomNumber, chosenUserId, chosenUserBalance, GeneratedNotes, GeneratedPrice;
+                        var randomNumber, chosenUserId_1, chosenUserBalance_1, GeneratedNotes_1, GeneratedPrice_1;
                         return __generator(this, function (_a) {
-                            if (res.status == 200) {
-                                randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
-                                chosenUserId = res.data[randomNumber].id;
-                                chosenUserBalance = res.data[randomNumber].balance;
-                                console.log(chosenUserId);
-                                GeneratedNotes = 0;
-                                GeneratedPrice = 0;
-                                if (chosenUserBalance > 1000) {
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(res.status == 200)) return [3 /*break*/, 2];
+                                    randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
+                                    chosenUserId_1 = res.data[randomNumber].id;
+                                    chosenUserBalance_1 = res.data[randomNumber].balance;
+                                    console.log(chosenUserId_1);
+                                    GeneratedNotes_1 = 0;
+                                    GeneratedPrice_1 = 0;
+                                    if (!(chosenUserBalance_1 > 1000)) return [3 /*break*/, 2];
                                     // console.log("wer are at chosen balalnce")
-                                    chosenUserBalance = (chosenUserBalance * 60) / 100;
+                                    chosenUserBalance_1 = (chosenUserBalance_1 * 60) / 100;
                                     // console.log(await getCurrentPrice());
                                     (0, functions_1.getCurrentPrice)().then(function (res) {
                                         console.log(res);
                                     });
-                                    // await getCurrentPrice().then((res: number) => {
-                                    // 	console.log(res)
-                                    // 	GeneratedPrice = res;
-                                    // 	GeneratedNotes =
-                                    // 		chosenUserBalance / GeneratedPrice.data.data;
-                                    // 		console.log('price is : '+GeneratedPrice.data.data)
-                                    // 	// call api here....
-                                    // 	let orderObject = {
-                                    // 		user_id: chosenUserId,
-                                    // 		price: GeneratedPrice.data.data,
-                                    // 		ordertype: "buy",
-                                    // 		amount: chosenUserBalance,
-                                    // 		notes: GeneratedNotes,
-                                    // 	};
-                                    // 	// let snack = JSON.stringify(orderObject);
-                                    // 	Axios.post(
-                                    // 		`http://localhost:8024/transactionWebsite`,
-                                    // 		orderObject
-                                    // 	)
-                                    // 		.then((res) => {
-                                    // 			console.log("Transaction made");
-                                    // 			console.log(res.data);
-                                    // 		})
-                                    // 		.catch((err) => {
-                                    // 			console.log(err);
-                                    // 		});
-                                    // });
-                                }
+                                    return [4 /*yield*/, (0, functions_1.getCurrentPrice)().then(function (res) {
+                                            console.log(res);
+                                            GeneratedPrice_1 = res;
+                                            GeneratedNotes_1 =
+                                                chosenUserBalance_1 / GeneratedPrice_1.data.data;
+                                            console.log('price is : ' + GeneratedPrice_1.data.data);
+                                            // call api here....
+                                            var orderObject = {
+                                                user_id: chosenUserId_1,
+                                                price: GeneratedPrice_1.data.data,
+                                                ordertype: "buy",
+                                                amount: chosenUserBalance_1,
+                                                notes: GeneratedNotes_1,
+                                            };
+                                            // let snack = JSON.stringify(orderObject);
+                                            axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
+                                                .then(function (res) {
+                                                console.log("Transaction made");
+                                                console.log(res.data);
+                                            })
+                                                .catch(function (err) {
+                                                console.log(err);
+                                            });
+                                        })];
+                                case 1:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2: return [2 /*return*/];
                             }
-                            return [2 /*return*/];
                         });
                     }); })
                         .catch(function (error) {

@@ -24,40 +24,40 @@ const main = () => {
 
 					if (chosenUserBalance > 1000) {
 						// console.log("wer are at chosen balalnce")
-						chosenUserBalance = (chosenUserBalance * 60 ) / 100; 
+						chosenUserBalance = (chosenUserBalance * 60) / 100;
 						// console.log(await getCurrentPrice());
-						getCurrentPrice().then((res)=>{
+						getCurrentPrice().then((res) => {
+							console.log(res);
+						});
+						
+						await getCurrentPrice().then((res: number) => {
 							console.log(res)
-						})
-						// await getCurrentPrice().then((res: number) => {
-						// 	console.log(res)
-						// 	GeneratedPrice = res;
-						// 	GeneratedNotes =
-						// 		chosenUserBalance / GeneratedPrice.data.data;
-						// 		console.log('price is : '+GeneratedPrice.data.data)
-						// 	// call api here....
-						// 	let orderObject = {
-						// 		user_id: chosenUserId,
-						// 		price: GeneratedPrice.data.data,
-						// 		ordertype: "buy",
-						// 		amount: chosenUserBalance,
-						// 		notes: GeneratedNotes,
-						// 	};
-						// 	// let snack = JSON.stringify(orderObject);
+							GeneratedPrice = res;
+							GeneratedNotes =
+								chosenUserBalance / GeneratedPrice.data.data;
+								console.log('price is : '+GeneratedPrice.data.data)
+							// call api here....
+							let orderObject = {
+								user_id: chosenUserId,
+								price: GeneratedPrice.data.data,
+								ordertype: "buy",
+								amount: chosenUserBalance,
+								notes: GeneratedNotes,
+							};
+							// let snack = JSON.stringify(orderObject);
 
-
-						// 	Axios.post(
-						// 		`http://localhost:8024/transactionWebsite`,
-						// 		orderObject
-						// 	)
-						// 		.then((res) => {
-						// 			console.log("Transaction made");
-						// 			console.log(res.data);
-						// 		})
-						// 		.catch((err) => {
-						// 			console.log(err);
-						// 		});
-						// });
+							Axios.post(
+								`http://localhost:8024/transactionWebsite`,
+								orderObject
+							)
+								.then((res) => {
+									console.log("Transaction made");
+									console.log(res.data);
+								})
+								.catch((err) => {
+									console.log(err);
+								});
+						});
 					}
 				}
 			})
