@@ -56,78 +56,89 @@ var main = function () {
                             return __generator(this, function (_a) {
                                 switch (_a.label) {
                                     case 0:
-                                        if (!(res.status == 200)) return [3 /*break*/, 4];
+                                        if (!(res.status == 200)) return [3 /*break*/, 3];
                                         return [4 /*yield*/, Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS)];
                                     case 1:
                                         randomNumber = _a.sent();
                                         chosenUserId_1 = res.data[randomNumber].id;
                                         chosenUserBalance_1 = res.data[randomNumber].balance;
                                         GeneratedNotes_1 = 0;
-                                        return [4 /*yield*/, (0, functions_1.getCurrentPrice)()];
-                                    case 2:
-                                        GeneratedPrice_1 = _a.sent();
-                                        // console.log(GeneratedPrice)
-                                        // console.log("arrived 2")
-                                        // call api to get the users keys:
-                                        return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId_1))
-                                                .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                                                var publicAddress;
+                                        GeneratedPrice_1 = 0;
+                                        return [4 /*yield*/, (0, functions_1.getCurrentPrice)().then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                 return __generator(this, function (_a) {
                                                     switch (_a.label) {
                                                         case 0:
-                                                            if (!(res.status == 200)) return [3 /*break*/, 2];
-                                                            publicAddress = res.data[0].publicKey;
-                                                            console.log("we got the keys: 0" + res.data + ". ");
-                                                            return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress))
+                                                            GeneratedPrice_1 = res;
+                                                            GeneratedNotes_1 = chosenUserBalance_1 / GeneratedPrice_1.data.data;
+                                                            // call api to get the users keys:
+                                                            return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId_1))
                                                                     .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                                                                    var userNotesBalance, orderObject;
+                                                                    var publicAddress;
                                                                     return __generator(this, function (_a) {
-                                                                        if (res.status == 200) {
-                                                                            console.log("we got the balance");
-                                                                            userNotesBalance = res.data.balance;
-                                                                            orderObject = {
-                                                                                user_id: chosenUserId_1,
-                                                                                price: GeneratedPrice_1.data.data,
-                                                                                ordertype: "sell",
-                                                                                amount: chosenUserBalance_1,
-                                                                                notes: GeneratedNotes_1,
-                                                                            };
-                                                                            // console.log(orderObject)
-                                                                            // console.log("has balance of : "+userNotesBalance)
-                                                                            if (userNotesBalance > 5) {
-                                                                                axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
-                                                                                    .then(function (res) {
-                                                                                    console.log("Transaction made");
-                                                                                    console.log(res);
-                                                                                })
-                                                                                    .catch(function (err) {
-                                                                                    console.log(err);
-                                                                                });
-                                                                            }
+                                                                        switch (_a.label) {
+                                                                            case 0:
+                                                                                if (!(res.status == 200)) return [3 /*break*/, 2];
+                                                                                publicAddress = res.data[0].publicKey;
+                                                                                // console.log(
+                                                                                // 	"we got the keys: 0" + res.data + ". "
+                                                                                // );
+                                                                                return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress))
+                                                                                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                                                                                        var userNotesBalance, orderObject;
+                                                                                        return __generator(this, function (_a) {
+                                                                                            if (res.status == 200) {
+                                                                                                userNotesBalance = res.data.balance;
+                                                                                                orderObject = {
+                                                                                                    user_id: chosenUserId_1,
+                                                                                                    price: GeneratedPrice_1.data.data,
+                                                                                                    ordertype: "sell",
+                                                                                                    amount: chosenUserBalance_1,
+                                                                                                    notes: GeneratedNotes_1,
+                                                                                                };
+                                                                                                console.log(orderObject);
+                                                                                                // console.log(orderObject)
+                                                                                                // console.log("has balance of : "+userNotesBalance)
+                                                                                                if (userNotesBalance > 5) {
+                                                                                                    axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
+                                                                                                        .then(function (res) {
+                                                                                                        console.log("Transaction made");
+                                                                                                        // console.log(res);
+                                                                                                    })
+                                                                                                        .catch(function (err) {
+                                                                                                        console.log(err);
+                                                                                                    });
+                                                                                                }
+                                                                                            }
+                                                                                            return [2 /*return*/];
+                                                                                        });
+                                                                                    }); })
+                                                                                        .catch(function (err) {
+                                                                                        console.log(err);
+                                                                                    })];
+                                                                            case 1:
+                                                                                // console.log(
+                                                                                // 	"we got the keys: 0" + res.data + ". "
+                                                                                // );
+                                                                                _a.sent();
+                                                                                _a.label = 2;
+                                                                            case 2: return [2 /*return*/];
                                                                         }
-                                                                        return [2 /*return*/];
                                                                     });
                                                                 }); })
                                                                     .catch(function (err) {
                                                                     console.log(err);
                                                                 })];
                                                         case 1:
+                                                            // call api to get the users keys:
                                                             _a.sent();
-                                                            _a.label = 2;
-                                                        case 2: return [2 /*return*/];
+                                                            return [2 /*return*/];
                                                     }
                                                 });
-                                            }); })
-                                                .catch(function (err) {
-                                                console.log(err);
-                                            })];
-                                    case 3:
-                                        // console.log(GeneratedPrice)
-                                        // console.log("arrived 2")
-                                        // call api to get the users keys:
+                                            }); })];
+                                    case 2:
                                         _a.sent();
-                                        _a.label = 4;
-                                    case 4: return [2 /*return*/];
+                                        _a.label = 3;
+                                    case 3: return [2 /*return*/];
                                 }
                             });
                         }); })

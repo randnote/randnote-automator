@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var _1 = require(".");
+var functions_1 = require("./functions/functions");
 var ENDPOINT = "http://127.0.0.1:8024";
 var main = function () {
     var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -51,44 +52,46 @@ var main = function () {
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                         var randomNumber, chosenUserId_1, chosenUserBalance_1, GeneratedNotes_1, GeneratedPrice_1;
                         return __generator(this, function (_a) {
-                            if (res.status == 200) {
-                                randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
-                                chosenUserId_1 = res.data[randomNumber].id;
-                                chosenUserBalance_1 = res.data[randomNumber].balance;
-                                console.log("randomly found the userID: " + chosenUserId_1);
-                                GeneratedNotes_1 = 0;
-                                GeneratedPrice_1 = 0;
-                                if (chosenUserBalance_1 > 100) {
-                                    // console.log("wer are at chosen balalnce")
-                                    chosenUserBalance_1 = (chosenUserBalance_1 * 30) / 100;
-                                    // console.log(await getCurrentPrice());
-                                    axios_1.default.get("http://localhost:8024/getCurrentPrice")
-                                        .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
-                                        var orderObject;
-                                        return __generator(this, function (_a) {
-                                            console.log("works");
-                                            console.log("within the geCurrentPrice function");
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(res.status == 200)) return [3 /*break*/, 2];
+                                    randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
+                                    chosenUserId_1 = res.data[randomNumber].id;
+                                    chosenUserBalance_1 = res.data[randomNumber].balance;
+                                    console.log(chosenUserId_1);
+                                    GeneratedNotes_1 = 0;
+                                    GeneratedPrice_1 = 0;
+                                    if (!(chosenUserBalance_1 > 1000)) return [3 /*break*/, 2];
+                                    chosenUserBalance_1 = (chosenUserBalance_1 * 60) / 100;
+                                    return [4 /*yield*/, (0, functions_1.getCurrentPrice)().then(function (res) {
+                                            console.log(res);
                                             GeneratedPrice_1 = res;
                                             GeneratedNotes_1 =
-                                                chosenUserBalance_1 /
-                                                    GeneratedPrice_1.data.data;
-                                            console.log("price is : " + GeneratedPrice_1.data.data);
-                                            orderObject = {
+                                                chosenUserBalance_1 / GeneratedPrice_1.data.data;
+                                            // console.log('price is : '+GeneratedPrice.data.data)
+                                            // call api here....
+                                            var orderObject = {
                                                 user_id: chosenUserId_1,
                                                 price: GeneratedPrice_1.data.data,
                                                 ordertype: "buy",
                                                 amount: chosenUserBalance_1,
                                                 notes: GeneratedNotes_1,
                                             };
-                                            return [2 /*return*/];
-                                        });
-                                    }); })
-                                        .catch(function (err) {
-                                        console.log(err);
-                                    });
-                                }
+                                            // let snack = JSON.stringify(orderObject);
+                                            axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
+                                                .then(function (res) {
+                                                console.log("Transaction made");
+                                                console.log(res.data); // leave this log... it aint a crazy one
+                                            })
+                                                .catch(function (err) {
+                                                console.log(err);
+                                            });
+                                        })];
+                                case 1:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2: return [2 /*return*/];
                             }
-                            return [2 /*return*/];
                         });
                     }); })
                         .catch(function (error) {

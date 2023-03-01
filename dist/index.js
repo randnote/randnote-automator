@@ -38,6 +38,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
 var worker_buy_1 = require("./worker_buy");
+var worker_sell_1 = require("./worker_sell");
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
@@ -79,10 +80,13 @@ var main = function () {
                 case 0: return [4 /*yield*/, (0, worker_buy_1.main)()];
                 case 1:
                     _a.sent();
+                    return [4 /*yield*/, (0, worker_sell_1.main)()];
+                case 2:
+                    _a.sent();
                     return [2 /*return*/];
             }
         });
-    }); }, 3000);
+    }); }, 100);
 };
 main();
 //# sourceMappingURL=index.js.map
