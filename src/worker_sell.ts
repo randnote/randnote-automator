@@ -28,12 +28,13 @@ const main = () => {
 						.then(async (res) => {
 							if (res.status == 200) {
 								let publicAddress = res.data[0].publicKey;
-								console.log(res);
+								console.log('we got the keys: 0'+res.data +'. ');
 								await Axios.get(
 									`http://localhost:8033/balance/${publicAddress}`
 								)
 									.then(async (res) => {
 										if (res.status == 200) {
+											console.log('we got the balance')
 											let userNotesBalance =
 												res.data.balance;
 											// console.log("arrived 3")

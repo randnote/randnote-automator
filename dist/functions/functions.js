@@ -76,6 +76,8 @@ var getCurrentPrice = function () { return __awaiter(void 0, void 0, void 0, fun
                     // 	resolve(res);
                     // 	// return res;
                     // }
+                    console.log(res);
+                    console.log('works');
                     resolve(res);
                     return [2 /*return*/];
                 });
@@ -119,32 +121,5 @@ exports.getLowestBiggest = getLowestBiggest;
 var valueDeterminer = function () {
     var value = 0;
     return value;
-};
-var myLoop = function () {
-    var i = 11;
-    setTimeout(function () {
-        // console.log(getLowestBiggest()); // shows the lowest and hights user
-        // make the highest user buy notes:
-        var biggestUser = getLowestBiggest["biggest"];
-        var orderObject = {
-            user_id: biggestUser.id,
-            price: 0,
-            amount: Math.floor(Math.random() * biggestUser.balance) + 1,
-            ordertype: "buy",
-            notes: 0, // we also need to call some sort of API and figure out how many notes they should get....
-        };
-        // Axios.post(`http://localhost:8024/transactionWebsite`, orderObject)
-        // 	.then((res) => {
-        // 		console.log("Transaction made");
-        // 		// handleCloseNotes();
-        // 		// handleClose();
-        // 	})
-        // 	.catch((err) => {
-        // 		console.log(err);
-        // 	});
-        if (i > 10) {
-            myLoop();
-        }
-    }, 1000);
 };
 //# sourceMappingURL=functions.js.map

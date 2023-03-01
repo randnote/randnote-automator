@@ -77,12 +77,13 @@ var main = function () {
                                                         case 0:
                                                             if (!(res.status == 200)) return [3 /*break*/, 2];
                                                             publicAddress = res.data[0].publicKey;
-                                                            console.log(res);
+                                                            console.log('we got the keys: 0' + res.data + '. ');
                                                             return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress))
                                                                     .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                                     var userNotesBalance, orderObject;
                                                                     return __generator(this, function (_a) {
                                                                         if (res.status == 200) {
+                                                                            console.log('we got the balance');
                                                                             userNotesBalance = res.data.balance;
                                                                             orderObject = {
                                                                                 user_id: chosenUserId_1,

@@ -27,6 +27,8 @@ const getCurrentPrice = async () => {
 				// 	resolve(res);
 				// 	// return res;
 				// }
+				console.log(res)
+				console.log('works')
 				resolve(res);
 			})
 			.catch((err) => {
@@ -66,40 +68,5 @@ const valueDeterminer = () => {
 
 	return value;
 };
-
-const myLoop = () => {
-	let i = 11;
-	setTimeout(() => {
-		// console.log(getLowestBiggest()); // shows the lowest and hights user
-
-		// make the highest user buy notes:
-		let biggestUser = getLowestBiggest["biggest"];
-
-		let orderObject = {
-			user_id: biggestUser.id,
-			price: 0, // we need to call api and request the price....
-			amount: Math.floor(Math.random() * biggestUser.balance) + 1, // any number betwenn 10 and their balance
-			ordertype: "buy",
-			notes: 0, // we also need to call some sort of API and figure out how many notes they should get....
-		};
-		// Axios.post(`http://localhost:8024/transactionWebsite`, orderObject)
-		// 	.then((res) => {
-		// 		console.log("Transaction made");
-		// 		// handleCloseNotes();
-		// 		// handleClose();
-		// 	})
-		// 	.catch((err) => {
-		// 		console.log(err);
-		// 	});
-
-		if (i > 10) {
-			myLoop();
-		}
-	}, 1000);
-};
-
-// myLoop();
-
-// write get currentPrice() here:
 
 export { getUsers, getLowestBiggest, getCurrentPrice };
