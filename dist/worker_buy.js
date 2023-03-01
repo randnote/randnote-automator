@@ -55,7 +55,7 @@ var main = function () {
                                 randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
                                 chosenUserId_1 = res.data[randomNumber].id;
                                 chosenUserBalance_1 = res.data[randomNumber].balance;
-                                console.log('randomly found the userID: ' + chosenUserId_1);
+                                console.log("randomly found the userID: " + chosenUserId_1);
                                 GeneratedNotes_1 = 0;
                                 GeneratedPrice_1 = 0;
                                 if (chosenUserBalance_1 > 100) {
@@ -66,12 +66,13 @@ var main = function () {
                                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                         var orderObject;
                                         return __generator(this, function (_a) {
-                                            console.log('works');
-                                            console.log('within the geCurrentPrice function');
+                                            console.log("works");
+                                            console.log("within the geCurrentPrice function");
                                             GeneratedPrice_1 = res;
                                             GeneratedNotes_1 =
-                                                chosenUserBalance_1 / GeneratedPrice_1.data.data;
-                                            console.log('price is : ' + GeneratedPrice_1.data.data);
+                                                chosenUserBalance_1 /
+                                                    GeneratedPrice_1.data.data;
+                                            console.log("price is : " + GeneratedPrice_1.data.data);
                                             orderObject = {
                                                 user_id: chosenUserId_1,
                                                 price: GeneratedPrice_1.data.data,

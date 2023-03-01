@@ -77,7 +77,7 @@ var getCurrentPrice = function () { return __awaiter(void 0, void 0, void 0, fun
                     // 	// return res;
                     // }
                     console.log(res);
-                    console.log('works');
+                    console.log("works");
                     resolve(res);
                     return [2 /*return*/];
                 });

@@ -27,8 +27,8 @@ const getCurrentPrice = async () => {
 				// 	resolve(res);
 				// 	// return res;
 				// }
-				console.log(res)
-				console.log('works')
+				console.log(res);
+				console.log("works");
 				resolve(res);
 			})
 			.catch((err) => {

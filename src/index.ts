@@ -36,7 +36,7 @@ const main = () => {
 	//
 	setInterval(async () => {
 		await worker_buyer();
-		// await worker_sell();
+		await worker_sell();
 	}, 3000);
 };
 
