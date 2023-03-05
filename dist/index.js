@@ -42,7 +42,7 @@ var worker_sell_1 = require("./worker_sell");
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
-var GLOBAL_NUMBER_OF_USERS = 40;
+var GLOBAL_NUMBER_OF_USERS = 49;
 exports.GLOBAL_NUMBER_OF_USERS = GLOBAL_NUMBER_OF_USERS;
 // function I run when i want to populate db with fake users:
 var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
@@ -86,7 +86,7 @@ var main = function () {
                     return [2 /*return*/];
             }
         });
-    }); }, 100);
+    }); }, 2000);
 };
 main();
 //# sourceMappingURL=index.js.map

@@ -11,7 +11,7 @@ import {
 import { getCurrentPrice } from "./functions/functions";
 
 let PeopleArray: Person[] = []; // array will store Person's
-let GLOBAL_NUMBER_OF_USERS = 40;
+let GLOBAL_NUMBER_OF_USERS = 49;
 
 // function I run when i want to populate db with fake users:
 const generateRandomUsersAndStoreInDatabase = async () => {
@@ -37,7 +37,7 @@ const main = () => {
 	setInterval(async () => {
 		await worker_buyer();
 		await worker_sell();
-	}, 100);
+	}, 2000);
 };
 
 main();
