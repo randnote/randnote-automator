@@ -34,9 +34,16 @@ const main = () => {
 	// }, 3000);
 	//  worker_buyer();
 	//
+	//
+	let count : number = 0;
 	setInterval(async () => {
+		count++;
 		await worker_buyer();
 		await worker_sell();
+		if(count ===10){
+			await worker_miner();
+			count = 0;
+		}
 	}, 2000);
 };
 

@@ -15,16 +15,17 @@ const main = () => {
 						Math.random() * GLOBAL_NUMBER_OF_USERS
 					);
 					let chosenUserId = res.data[randomNumber].id;
-					let chosenUserBalance :any= res.data[randomNumber].balance;
+					let chosenUserBalance: any = res.data[randomNumber].balance;
 					// let GeneratedPrice: any = await getCurrentPrice();
 
 					let GeneratedNotes = 0;
 					let GeneratedPrice: any = 0;
 
-					await getCurrentPrice().then(async(res: number) => {
-						 GeneratedPrice = res;
-						 GeneratedNotes = chosenUserBalance / GeneratedPrice.data.data;
-						
+					await getCurrentPrice().then(async (res: number) => {
+						GeneratedPrice = res;
+						GeneratedNotes =
+							chosenUserBalance / GeneratedPrice.data.data;
+
 						// call api to get the users keys:
 						await Axios.get(
 							`http://localhost:8024/getKeys/${chosenUserId}`
@@ -47,12 +48,13 @@ const main = () => {
 												// call api here....
 												let orderObject = {
 													user_id: chosenUserId,
-													price: GeneratedPrice.data.data,
+													price: GeneratedPrice.data
+														.data,
 													ordertype: "sell",
 													amount: chosenUserBalance,
 													notes: GeneratedNotes,
 												};
-												console.log(orderObject)
+												console.log(orderObject);
 												// console.log(orderObject)
 												// console.log("has balance of : "+userNotesBalance)
 												if (userNotesBalance > 5) {
@@ -80,8 +82,7 @@ const main = () => {
 							.catch((err) => {
 								console.log(err);
 							});
-						})
-
+					});
 				} // end of if(status == 200)
 			})
 			.catch((error) => {

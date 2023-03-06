@@ -1,5 +1,6 @@
 import Axios from "axios";
 const SHA256 = require("crypto-js/sha256");
+import { GLOBAL_NUMBER_OF_USERS } from ".";
 
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 
@@ -16,7 +17,7 @@ const calculateHash = (
 	).toString();
 };
 
-const mineBlock = async (publicAddress: any, privateAddress: any) => {
+const mineBlock = async (publicAddress: any) => {
 	// first get the block:
 	Axios.get(`http://localhost:8033/mine/${publicAddress}/0`).then(
 		async (response: any) => {
@@ -27,9 +28,7 @@ const mineBlock = async (publicAddress: any, privateAddress: any) => {
 				);
 				process.exit(1);
 			}
-
 			let block = await response.data.block;
-
 			// prepare the difficulty and everything:
 			let difficulty: any = 2;
 			console.log(block);
@@ -41,7 +40,7 @@ const mineBlock = async (publicAddress: any, privateAddress: any) => {
 				block.transactions,
 				block.nonce
 			);
-			console.log("Mining...");
+			// console.log("Mining...");
 			while (
 				hash.substring(0, difficulty) != Array(difficulty + 1).join("0")
 			) {
@@ -54,7 +53,6 @@ const mineBlock = async (publicAddress: any, privateAddress: any) => {
 				);
 			}
 			console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
-
 			// now send to the server:
 			Axios.get(
 				`http://localhost:8033/mine/${publicAddress}/${hash}`
@@ -72,13 +70,27 @@ const main = () => {
 		await Axios.get(`http://localhost:8024/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
-					// BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
-					// let obj: any = await getLowestBiggest(
-					// 	JSON.stringify(res.data)
-					// );
-					// parentPort?.postMessage(obj);
-					// call axios to get the users keys.... using his email
-					//await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
+					let randomNumber = Math.floor(
+						Math.random() * GLOBAL_NUMBER_OF_USERS
+					);
+					let chosenUserId = res.data[randomNumber].id;
+					let chosenUserBalance = res.data[randomNumber].balance;
+					console.log(chosenUserId);
+
+					// call api to get the users keys:
+					await Axios.get(
+						`http://localhost:8024/getKeys/${chosenUserId}`
+					)
+						.then(async (res) => {
+							if (res.status == 200) {
+								let publicAddress = res.data[0].publicKey;
+								mineBlock(publicAddress);
+								return;
+							}
+						})
+						.catch((err) => {
+							console.log(err);
+						});
 				}
 			})
 			.catch((err) => {
