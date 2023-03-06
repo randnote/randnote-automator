@@ -2,6 +2,7 @@ import express, { Application, Request, Response, NextFunction } from "express";
 import { main as worker_miner } from "./worker_miner";
 import { main as worker_buyer } from "./worker_buy";
 import { main as worker_sell } from "./worker_sell";
+import {main as worker_sendNotes} from "./worker_sendNotes";
 import {
 	generator,
 	storeInDatabase,
@@ -22,7 +23,7 @@ const generateRandomUsersAndStoreInDatabase = async () => {
 
 const main = () => {
 	let l: boolean = true;
-	
+
 	let count: number = 0;
 	setInterval(async () => {
 		count++;
@@ -30,6 +31,7 @@ const main = () => {
 		await worker_sell();
 		if (count === 10) {
 			await worker_miner();
+			await worker_sendNotes();
 			count = 0;
 		}
 	}, 2000);

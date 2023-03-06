@@ -40,6 +40,7 @@ exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
 var worker_miner_1 = require("./worker_miner");
 var worker_buy_1 = require("./worker_buy");
 var worker_sell_1 = require("./worker_sell");
+var worker_sendNotes_1 = require("./worker_sendNotes");
 var nameGenerator_1 = require("./nameGenerator");
 var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
@@ -76,13 +77,16 @@ var main = function () {
                     return [4 /*yield*/, (0, worker_sell_1.main)()];
                 case 2:
                     _a.sent();
-                    if (!(count === 10)) return [3 /*break*/, 4];
+                    if (!(count === 10)) return [3 /*break*/, 5];
                     return [4 /*yield*/, (0, worker_miner_1.main)()];
                 case 3:
                     _a.sent();
+                    return [4 /*yield*/, (0, worker_sendNotes_1.main)()];
+                case 4:
+                    _a.sent();
                     count = 0;
-                    _a.label = 4;
-                case 4: return [2 /*return*/];
+                    _a.label = 5;
+                case 5: return [2 /*return*/];
             }
         });
     }); }, 2000);

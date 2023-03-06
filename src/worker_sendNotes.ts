@@ -99,12 +99,10 @@ const main = () => {
 																	res.status ==
 																	200
 																) {
-																	// console.log(
-																	// 	"The transaction is successful"
-																	// );
-																	parentPort?.postMessage(
-																		"Send notes was successfull"
-																	);
+																	console.log(
+																		"The transaction is successful Notes transfered from "+ publicAddress + " to the address: "+ publicAddressReciever);
+																	
+																	
 																}
 															})
 															.catch((err) => {
@@ -139,3 +137,5 @@ const main = () => {
 // setInterval(() => {
 // 	main();
 // }, 2000);
+
+export {main};

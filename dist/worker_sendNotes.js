@@ -39,8 +39,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
-var worker_threads_1 = require("worker_threads");
 var _1 = require(".");
 // plan:
 /*
@@ -118,10 +118,7 @@ var main = function () {
                                                                                                     // console.log(sendNotesObject);
                                                                                                     if (res.status ==
                                                                                                         200) {
-                                                                                                        // console.log(
-                                                                                                        // 	"The transaction is successful"
-                                                                                                        // );
-                                                                                                        worker_threads_1.parentPort === null || worker_threads_1.parentPort === void 0 ? void 0 : worker_threads_1.parentPort.postMessage("Send notes was successfull");
+                                                                                                        console.log("The transaction is successful Notes transfered from " + publicAddress_1 + " to the address: " + publicAddressReciever);
                                                                                                     }
                                                                                                 })
                                                                                                     .catch(function (err) {
@@ -174,7 +171,5 @@ var main = function () {
     }); };
     getUsers();
 };
-// setInterval(() => {
-// 	main();
-// }, 2000);
+exports.main = main;
 //# sourceMappingURL=worker_sendNotes.js.map
