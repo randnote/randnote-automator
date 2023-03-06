@@ -58,7 +58,6 @@ var main = function () {
                                     randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
                                     chosenUserId_1 = res.data[randomNumber].id;
                                     chosenUserBalance_1 = res.data[randomNumber].balance;
-                                    console.log(chosenUserId_1);
                                     GeneratedNotes_1 = 0;
                                     GeneratedPrice_1 = 0;
                                     if (!(chosenUserBalance_1 > 1000)) return [3 /*break*/, 2];

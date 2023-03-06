@@ -42,12 +42,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var SHA256 = require("crypto-js/sha256");
+var _1 = require(".");
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 var users = [];
 var calculateHash = function (timestamp, previousHash, transactions, nonce) {
     return SHA256(timestamp + previousHash + JSON.stringify(transactions) + nonce).toString();
 };
-var mineBlock = function (publicAddress, privateAddress) { return __awaiter(void 0, void 0, void 0, function () {
+var mineBlock = function (publicAddress) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         // first get the block:
         axios_1.default.get("http://localhost:8033/mine/".concat(publicAddress, "/0")).then(function (response) { return __awaiter(void 0, void 0, void 0, function () {
@@ -69,7 +70,7 @@ var mineBlock = function (publicAddress, privateAddress) { return __awaiter(void
                         return [4 /*yield*/, calculateHash(block.timestamp, block.previousHash, block.transactions, block.nonce)];
                     case 2:
                         hash = _a.sent();
-                        console.log("Mining...");
+                        // console.log("Mining...");
                         while (hash.substring(0, difficulty) != Array(difficulty + 1).join("0")) {
                             block["nonce"]++;
                             hash = calculateHash(block.timestamp, block.previousHash, block.transactions, block.nonce);
@@ -94,17 +95,37 @@ var main = function () {
             switch (_a.label) {
                 case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                        var randomNumber, chosenUserId, chosenUserBalance;
                         return __generator(this, function (_a) {
-                            if (res.status == 200) {
-                                // BEFORE SENDING OFF TO MAIN THREAD, I NEED TO MAKE USER WITH LOWEST-> MINE!!!!
-                                // let obj: any = await getLowestBiggest(
-                                // 	JSON.stringify(res.data)
-                                // );
-                                // parentPort?.postMessage(obj);
-                                // call axios to get the users keys.... using his email
-                                //await mineBlock("sdf", "sdf"); // i need to stash this with the public and private keys....
+                            switch (_a.label) {
+                                case 0:
+                                    if (!(res.status == 200)) return [3 /*break*/, 2];
+                                    randomNumber = Math.floor(Math.random() * _1.GLOBAL_NUMBER_OF_USERS);
+                                    chosenUserId = res.data[randomNumber].id;
+                                    chosenUserBalance = res.data[randomNumber].balance;
+                                    console.log(chosenUserId);
+                                    // call api to get the users keys:
+                                    return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId))
+                                            .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
+                                            var publicAddress;
+                                            return __generator(this, function (_a) {
+                                                if (res.status == 200) {
+                                                    publicAddress = res.data[0].publicKey;
+                                                    mineBlock(publicAddress);
+                                                    return [2 /*return*/];
+                                                }
+                                                return [2 /*return*/];
+                                            });
+                                        }); })
+                                            .catch(function (err) {
+                                            console.log(err);
+                                        })];
+                                case 1:
+                                    // call api to get the users keys:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2: return [2 /*return*/];
                             }
-                            return [2 /*return*/];
                         });
                     }); })
                         .catch(function (err) {

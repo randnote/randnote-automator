@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
+var worker_miner_1 = require("./worker_miner");
 var worker_buy_1 = require("./worker_buy");
 var worker_sell_1 = require("./worker_sell");
 var nameGenerator_1 = require("./nameGenerator");
@@ -63,27 +64,25 @@ var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 
 }); };
 var main = function () {
     var l = true;
-    // setInterval(async () => {
-    // 	if (l == true) {
-    // 		await worker_buyer();
-    // 		l = false;
-    // 	} else {
-    // 		await worker_sell();
-    // 		l = true;
-    // 	}
-    // }, 3000);
-    //  worker_buyer();
-    //
+    var count = 0;
     setInterval(function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, (0, worker_buy_1.main)()];
+                case 0:
+                    count++;
+                    return [4 /*yield*/, (0, worker_buy_1.main)()];
                 case 1:
                     _a.sent();
                     return [4 /*yield*/, (0, worker_sell_1.main)()];
                 case 2:
                     _a.sent();
-                    return [2 /*return*/];
+                    if (!(count === 10)) return [3 /*break*/, 4];
+                    return [4 /*yield*/, (0, worker_miner_1.main)()];
+                case 3:
+                    _a.sent();
+                    count = 0;
+                    _a.label = 4;
+                case 4: return [2 /*return*/];
             }
         });
     }); }, 2000);

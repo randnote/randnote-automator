@@ -69,7 +69,8 @@ var main = function () {
                                                     switch (_a.label) {
                                                         case 0:
                                                             GeneratedPrice_1 = res;
-                                                            GeneratedNotes_1 = chosenUserBalance_1 / GeneratedPrice_1.data.data;
+                                                            GeneratedNotes_1 =
+                                                                chosenUserBalance_1 / GeneratedPrice_1.data.data;
                                                             // call api to get the users keys:
                                                             return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId_1))
                                                                     .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -90,7 +91,8 @@ var main = function () {
                                                                                                 userNotesBalance = res.data.balance;
                                                                                                 orderObject = {
                                                                                                     user_id: chosenUserId_1,
-                                                                                                    price: GeneratedPrice_1.data.data,
+                                                                                                    price: GeneratedPrice_1.data
+                                                                                                        .data,
                                                                                                     ordertype: "sell",
                                                                                                     amount: chosenUserBalance_1,
                                                                                                     notes: GeneratedNotes_1,
