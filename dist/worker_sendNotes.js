@@ -118,7 +118,10 @@ var main = function () {
                                                                                                     // console.log(sendNotesObject);
                                                                                                     if (res.status ==
                                                                                                         200) {
-                                                                                                        console.log("The transaction is successful Notes transfered from " + publicAddress_1 + " to the address: " + publicAddressReciever);
+                                                                                                        console.log("The transaction is successful Notes transfered from " +
+                                                                                                            publicAddress_1 +
+                                                                                                            " to the address: " +
+                                                                                                            publicAddressReciever);
                                                                                                     }
                                                                                                 })
                                                                                                     .catch(function (err) {

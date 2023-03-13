@@ -1,6 +1,7 @@
 import Axios from "axios";
 const SHA256 = require("crypto-js/sha256");
 import { GLOBAL_NUMBER_OF_USERS } from ".";
+import { BACKEND_API, BLOCKCHAIN_API} from ".";
 
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 
@@ -19,7 +20,7 @@ const calculateHash = (
 
 const mineBlock = async (publicAddress: any) => {
 	// first get the block:
-	Axios.get(`http://localhost:8033/mine/${publicAddress}/0`).then(
+	Axios.get(`${BLOCKCHAIN_API}/mine/${publicAddress}/0`).then(
 		async (response: any) => {
 			console.log(response.status);
 			if (response.status === 204) {
@@ -55,7 +56,7 @@ const mineBlock = async (publicAddress: any) => {
 			console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
 			// now send to the server:
 			Axios.get(
-				`http://localhost:8033/mine/${publicAddress}/${hash}`
+				`${BLOCKCHAIN_API}/mine/${publicAddress}/${hash}`
 			).then((response: any) => {
 				console.log(response.data);
 			});
@@ -67,7 +68,7 @@ const main = () => {
 	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
 	let object: any = {};
 	const getUsers = async () => {
-		await Axios.get(`http://localhost:8024/userfindAutoGens`)
+		await Axios.get(`${BACKEND_API}/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
 					let randomNumber = Math.floor(
@@ -79,7 +80,7 @@ const main = () => {
 
 					// call api to get the users keys:
 					await Axios.get(
-						`http://localhost:8024/getKeys/${chosenUserId}`
+						`${BACKEND_API}/getKeys/${chosenUserId}`
 					)
 						.then(async (res) => {
 							if (res.status == 200) {

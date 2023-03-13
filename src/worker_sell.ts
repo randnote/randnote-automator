@@ -1,6 +1,8 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
 import { GLOBAL_NUMBER_OF_USERS } from ".";
+import { BACKEND_API, BLOCKCHAIN_API } from ".";
+
 
 import { getCurrentPrice } from "./functions/functions";
 
@@ -8,7 +10,7 @@ const main = () => {
 	console.log("def");
 	const getUsers = async () => {
 		console.log("arrived");
-		await Axios.get(`http://localhost:8024/userfindAutoGens`)
+		await Axios.get(`${BACKEND_API}/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
 					let randomNumber = await Math.floor(
@@ -28,7 +30,7 @@ const main = () => {
 
 						// call api to get the users keys:
 						await Axios.get(
-							`http://localhost:8024/getKeys/${chosenUserId}`
+							`${BACKEND_API}/getKeys/${chosenUserId}`
 						)
 							.then(async (res) => {
 								if (res.status == 200) {
@@ -37,7 +39,7 @@ const main = () => {
 									// 	"we got the keys: 0" + res.data + ". "
 									// );
 									await Axios.get(
-										`http://localhost:8033/balance/${publicAddress}`
+										`${BLOCKCHAIN_API}/balance/${publicAddress}`
 									)
 										.then(async (res) => {
 											if (res.status == 200) {
@@ -59,7 +61,7 @@ const main = () => {
 												// console.log("has balance of : "+userNotesBalance)
 												if (userNotesBalance > 5) {
 													Axios.post(
-														`http://localhost:8024/transactionWebsite`,
+														`${BACKEND_API}/transactionWebsite`,
 														orderObject
 													)
 														.then((res) => {

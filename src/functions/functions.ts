@@ -1,9 +1,9 @@
 import Axios from "axios";
-import { parentPort } from "worker_threads";
 let users: any = [];
+import { BACKEND_API, BLOCKCHAIN_API } from "..";
 
 const getUsers = async () => {
-	await Axios.get(`http://localhost:8024/userfindAutoGens`)
+	await Axios.get(`${BACKEND_API}/userfindAutoGens`)
 		.then((res) => {
 			if (res.status == 200) {
 				res.data.forEach((element: any) => {
@@ -20,7 +20,7 @@ const getUsers = async () => {
 
 const getCurrentPrice = async () => {
 	const promise = new Promise((resolve: any, reject: any) => {
-		Axios.get(`http://localhost:8024/getCurrentPrice`)
+		Axios.get(`${BACKEND_API}/getCurrentPrice`)
 			.then(async (res) => {
 				// if (res.status == 200) {
 				// 	// console.log(res);

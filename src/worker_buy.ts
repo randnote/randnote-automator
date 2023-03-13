@@ -1,13 +1,13 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
 import { GLOBAL_NUMBER_OF_USERS } from ".";
+import { BACKEND_API } from ".";
 
 import { getCurrentPrice } from "./functions/functions";
-const ENDPOINT = "http://127.0.0.1:8024";
 
 const main = () => {
 	const getUsers = async () => {
-		await Axios.get(`http://localhost:8024/userfindAutoGens`)
+		await Axios.get(`${BACKEND_API}/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
 					let randomNumber = Math.floor(
@@ -41,7 +41,7 @@ const main = () => {
 							// let snack = JSON.stringify(orderObject);
 
 							Axios.post(
-								`http://localhost:8024/transactionWebsite`,
+								`${BACKEND_API}/transactionWebsite`,
 								orderObject
 							)
 								.then((res) => {

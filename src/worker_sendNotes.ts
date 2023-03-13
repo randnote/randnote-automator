@@ -1,8 +1,8 @@
 import Axios from "axios";
 import { parentPort } from "worker_threads";
 import { GLOBAL_NUMBER_OF_USERS } from ".";
+import { BACKEND_API, BLOCKCHAIN_API, FRONTEND_API } from ".";
 
-// plan:
 /*
     Excuse the mess....
     I write spaghetti code here because I dont have one API endpoint which gets me the users with their addresses and balances...
@@ -18,7 +18,7 @@ const main = () => {
 	// this function, needs to get users who can mine, and make one of them mine... calls the functions.ts
 
 	const getUsers = async () => {
-		await Axios.get(`http://localhost:8024/userfindAutoGens`)
+		await Axios.get(`${BACKEND_API}/userfindAutoGens`)
 			.then(async (res) => {
 				if (res.status == 200) {
 					let randomNumber = Math.floor(
@@ -38,7 +38,7 @@ const main = () => {
 
 					// call api to get the users keys:
 					await Axios.get(
-						`http://localhost:8024/getKeys/${chosenUserId}`
+						`${BACKEND_API}/getKeys/${chosenUserId}`
 					)
 						.then(async (res) => {
 							if (res.status == 200) {
@@ -48,14 +48,14 @@ const main = () => {
 
 								// where the CORE spaghetti code starts:
 								await Axios.get(
-									`http://localhost:8024/getKeys/${chosenReceiverId}`
+									`${BACKEND_API}/getKeys/${chosenReceiverId}`
 								)
 									.then(async (res) => {
 										let publicAddressReciever =
 											res.data[0].publicKey;
 
 										await Axios.get(
-											`http://localhost:8033/balance/${publicAddress}`
+											`${BLOCKCHAIN_API}/balance/${publicAddress}`
 										)
 											.then(async (res) => {
 												if (res.status == 200) {
@@ -88,7 +88,7 @@ const main = () => {
 															);
 
 														Axios.post(
-															`http://localhost:8033/transaction`,
+															`${BLOCKCHAIN_API}/transaction`,
 															{
 																obj: snack,
 															}
@@ -100,9 +100,11 @@ const main = () => {
 																	200
 																) {
 																	console.log(
-																		"The transaction is successful Notes transfered from "+ publicAddress + " to the address: "+ publicAddressReciever);
-																	
-																	
+																		"The transaction is successful Notes transfered from " +
+																			publicAddress +
+																			" to the address: " +
+																			publicAddressReciever
+																	);
 																}
 															})
 															.catch((err) => {
@@ -138,4 +140,4 @@ const main = () => {
 // 	main();
 // }, 2000);
 
-export {main};
+export { main };
