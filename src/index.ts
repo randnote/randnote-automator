@@ -51,8 +51,8 @@ const main = () => {
 	}, 2000);
 };
 
-// main();
-generateRandomUsersAndStoreInDatabase();
+main();
+// generateRandomUsersAndStoreInDatabase();
 
 export { BLOCKCHAIN_API, FRONTEND_API, BACKEND_API };
 export { PeopleArray, GLOBAL_NUMBER_OF_USERS };
