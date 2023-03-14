@@ -37,9 +37,7 @@ const main = () => {
 					let chosenReceiverId = res.data[randomNumberReciever].id;
 
 					// call api to get the users keys:
-					await Axios.get(
-						`${BACKEND_API}/getKeys/${chosenUserId}`
-					)
+					await Axios.get(`${BACKEND_API}/getKeys/${chosenUserId}`)
 						.then(async (res) => {
 							if (res.status == 200) {
 								//console.log(res.data[0]); // becase i received an array with one item.

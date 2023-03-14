@@ -3,7 +3,6 @@ import { parentPort } from "worker_threads";
 import { GLOBAL_NUMBER_OF_USERS } from ".";
 import { BACKEND_API, BLOCKCHAIN_API } from ".";
 
-
 import { getCurrentPrice } from "./functions/functions";
 
 const main = () => {

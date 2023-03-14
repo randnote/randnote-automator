@@ -1,7 +1,7 @@
 import Axios from "axios";
 const SHA256 = require("crypto-js/sha256");
 import { GLOBAL_NUMBER_OF_USERS } from ".";
-import { BACKEND_API, BLOCKCHAIN_API} from ".";
+import { BACKEND_API, BLOCKCHAIN_API } from ".";
 
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 
@@ -55,11 +55,11 @@ const mineBlock = async (publicAddress: any) => {
 			}
 			console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
 			// now send to the server:
-			Axios.get(
-				`${BLOCKCHAIN_API}/mine/${publicAddress}/${hash}`
-			).then((response: any) => {
-				console.log(response.data);
-			});
+			Axios.get(`${BLOCKCHAIN_API}/mine/${publicAddress}/${hash}`).then(
+				(response: any) => {
+					console.log(response.data);
+				}
+			);
 		}
 	);
 };
@@ -79,9 +79,7 @@ const main = () => {
 					console.log(chosenUserId);
 
 					// call api to get the users keys:
-					await Axios.get(
-						`${BACKEND_API}/getKeys/${chosenUserId}`
-					)
+					await Axios.get(`${BACKEND_API}/getKeys/${chosenUserId}`)
 						.then(async (res) => {
 							if (res.status == 200) {
 								let publicAddress = res.data[0].publicKey;
