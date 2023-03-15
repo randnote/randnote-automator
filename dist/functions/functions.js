@@ -42,10 +42,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.getCurrentPrice = exports.getLowestBiggest = exports.getUsers = void 0;
 var axios_1 = __importDefault(require("axios"));
 var users = [];
+var __1 = require("..");
 var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+            case 0: return [4 /*yield*/, axios_1.default.get("".concat(__1.BACKEND_API, "/userfindAutoGens"))
                     .then(function (res) {
                     if (res.status == 200) {
                         res.data.forEach(function (element) {
@@ -68,7 +69,7 @@ var getCurrentPrice = function () { return __awaiter(void 0, void 0, void 0, fun
     var promise;
     return __generator(this, function (_a) {
         promise = new Promise(function (resolve, reject) {
-            axios_1.default.get("http://localhost:8024/getCurrentPrice")
+            axios_1.default.get("".concat(__1.BACKEND_API, "/getCurrentPrice"))
                 .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                     // if (res.status == 200) {

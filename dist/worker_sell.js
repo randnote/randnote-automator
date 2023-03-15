@@ -42,6 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var _1 = require(".");
+var _2 = require(".");
 var functions_1 = require("./functions/functions");
 var main = function () {
     console.log("def");
@@ -50,7 +51,7 @@ var main = function () {
             switch (_a.label) {
                 case 0:
                     console.log("arrived");
-                    return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+                    return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/userfindAutoGens"))
                             .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                             var randomNumber, chosenUserId_1, chosenUserBalance_1, GeneratedNotes_1, GeneratedPrice_1;
                             return __generator(this, function (_a) {
@@ -72,7 +73,7 @@ var main = function () {
                                                             GeneratedNotes_1 =
                                                                 chosenUserBalance_1 / GeneratedPrice_1.data.data;
                                                             // call api to get the users keys:
-                                                            return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId_1))
+                                                            return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/getKeys/").concat(chosenUserId_1))
                                                                     .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                                     var publicAddress;
                                                                     return __generator(this, function (_a) {
@@ -83,7 +84,7 @@ var main = function () {
                                                                                 // console.log(
                                                                                 // 	"we got the keys: 0" + res.data + ". "
                                                                                 // );
-                                                                                return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress))
+                                                                                return [4 /*yield*/, axios_1.default.get("".concat(_2.BLOCKCHAIN_API, "/balance/").concat(publicAddress))
                                                                                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                                                         var userNotesBalance, orderObject;
                                                                                         return __generator(this, function (_a) {
@@ -101,7 +102,7 @@ var main = function () {
                                                                                                 // console.log(orderObject)
                                                                                                 // console.log("has balance of : "+userNotesBalance)
                                                                                                 if (userNotesBalance > 5) {
-                                                                                                    axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
+                                                                                                    axios_1.default.post("".concat(_2.BACKEND_API, "/transactionWebsite"), orderObject)
                                                                                                         .then(function (res) {
                                                                                                         console.log("Transaction made");
                                                                                                         // console.log(res);

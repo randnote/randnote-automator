@@ -1,34 +1,15 @@
 # randnote-automator
-A randnote automator for transactions and mining. Uses 100 radomly created accounts; transacts and mines using these accounts. 
+1. A randnote automator for transactions and mining. Uses +-50 radomly created accounts; transacts and mines using these accounts. 
+2. There are a total of 5 scripts:
+   1. The `nameGenrator.ts`  which is responsible for generating a list of users who will transact continously.
+   2. The `worker_buy.ts`, an ongoing script taht keeps getting users from the DB, randomly selects one, and tries to purchase notes with them if their balance is greater than a given value.
+   3. The `worker_sell.ts`, an ongoing script taht keeps getting users from the DB, randomly selects one, and tries to sell notes with them if their Notes balance in the blockchain is greater than a given value.
+   4. The `worker_miner.ts`, an ongoing script that selects a random user and tries to mine the blockchain with their public address.
+   5. The `worker_sendNotes.ts`, an ongoing script that selects a 2 random users, checks if one of the users has a greater Notes balance in the blockchain that is greater than a given value, then tries to send notes to the other user.
 
-### The entire project is created using python
-Although python in probably the slowest tool to do such a task, it was chosen for simplicity sake.
+The `nameGenerator.ts` is meant to be ran once, to install the list of fake users in the backend(the database). The developer must then comment out this script in the `index.ts` and then uncomment out the `main()` function that will allow all the other funcitons to start running continously.
 
----
-#### After adding a library to venv, use:
+## How to start the application
 
-`python -m pip freeze > requirements.txt` to add the packages to the requirements.txt file
-
-#### To start devloping, use:
-
-`pip install -r requirements.txt` to install all packages to your virtual env. 
-
-This project also uses `NPM`
-So run `npm install`
-
-
-#### Developer Guid:
-1. Remember that the nameGenerator.py script in the root directory forms no part of the ongoing process of the application. This script is only meant to be run at the beginnig of the project when setting the project up in any environment. It acts as a creator of the fake-users and stores them to the database.
-
-### Additional notes... 
-
-ACTUALLY SCRATCH WHATEVER I WAS ABOUT TO WRITE ,,,, MY NEW SOLUTION IS TO USER WORKER THREADS.
-I realized that the best solution is to have 5 concurrent threads working at the same time.
-1. while loop (true) to keep running 1 function over and over again.
-2. The miner keeps mining and giving randnom users a chance to mine.
-3. Users who qualify will keep selling
-4. Users who qualify will keep donating funds to other users....
-
-
-1. LONG STORY SHORT, I NEED TO WRITE A FUNCITON IN THE BACKEND - SAME THING I DID IN THE FRONTED, WHICH WILL GET ME THE PRICE AND DETERMINE HOW
-2. MUCH I SHOULD PAY PER NOTE , PER HOW MANY NOTES
+1. `yarn install`
+2. `yarn run dev`

@@ -48,7 +48,7 @@ const main = () => {
 			await worker_sendNotes();
 			count = 0;
 		}
-	}, 2000);
+	}, 900);
 };
 
 main();

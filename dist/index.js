@@ -36,7 +36,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = void 0;
+exports.GLOBAL_NUMBER_OF_USERS = exports.PeopleArray = exports.BACKEND_API = exports.FRONTEND_API = exports.BLOCKCHAIN_API = void 0;
 var worker_miner_1 = require("./worker_miner");
 var worker_buy_1 = require("./worker_buy");
 var worker_sell_1 = require("./worker_sell");
@@ -46,6 +46,23 @@ var PeopleArray = []; // array will store Person's
 exports.PeopleArray = PeopleArray;
 var GLOBAL_NUMBER_OF_USERS = 49;
 exports.GLOBAL_NUMBER_OF_USERS = GLOBAL_NUMBER_OF_USERS;
+// set environmental variables
+var BLOCKCHAIN_API = "";
+exports.BLOCKCHAIN_API = BLOCKCHAIN_API;
+var FRONTEND_API = "";
+exports.FRONTEND_API = FRONTEND_API;
+var BACKEND_API = "";
+exports.BACKEND_API = BACKEND_API;
+if (process.env.NODE_ENV == "development") {
+    exports.BLOCKCHAIN_API = BLOCKCHAIN_API = "http://localhost:8034";
+    exports.FRONTEND_API = FRONTEND_API = "http://localhost:3002";
+    exports.BACKEND_API = BACKEND_API = "http://localhost:8024";
+}
+else if (process.env.NODE_ENV == "production") {
+    exports.BLOCKCHAIN_API = BLOCKCHAIN_API = "https://blockchain.randnotex.co.za";
+    exports.FRONTEND_API = FRONTEND_API = "https://randnotex.co.za";
+    exports.BACKEND_API = BACKEND_API = "https://backend.randnotex.co.za";
+}
 // function I run when i want to populate db with fake users:
 var generateRandomUsersAndStoreInDatabase = function () { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
@@ -89,7 +106,7 @@ var main = function () {
                 case 5: return [2 /*return*/];
             }
         });
-    }); }, 2000);
+    }); }, 900);
 };
 main();
 //# sourceMappingURL=index.js.map

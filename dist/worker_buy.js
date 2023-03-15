@@ -42,13 +42,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var _1 = require(".");
+var _2 = require(".");
 var functions_1 = require("./functions/functions");
-var ENDPOINT = "http://127.0.0.1:8024";
 var main = function () {
     var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+                case 0: return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/userfindAutoGens"))
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                         var randomNumber, chosenUserId_1, chosenUserBalance_1, GeneratedNotes_1, GeneratedPrice_1;
                         return __generator(this, function (_a) {
@@ -77,7 +77,7 @@ var main = function () {
                                                 notes: GeneratedNotes_1,
                                             };
                                             // let snack = JSON.stringify(orderObject);
-                                            axios_1.default.post("http://localhost:8024/transactionWebsite", orderObject)
+                                            axios_1.default.post("".concat(_2.BACKEND_API, "/transactionWebsite"), orderObject)
                                                 .then(function (res) {
                                                 console.log("Transaction made");
                                                 console.log(res.data); // leave this log... it aint a crazy one

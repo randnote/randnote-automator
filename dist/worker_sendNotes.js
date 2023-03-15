@@ -42,7 +42,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var _1 = require(".");
-// plan:
+var _2 = require(".");
 /*
     Excuse the mess....
     I write spaghetti code here because I dont have one API endpoint which gets me the users with their addresses and balances...
@@ -59,7 +59,7 @@ var main = function () {
     var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+                case 0: return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/userfindAutoGens"))
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                         var randomNumber, randomNumberReciever, chosenUserId, chosenReceiverId_1;
                         return __generator(this, function (_a) {
@@ -76,7 +76,7 @@ var main = function () {
                                     chosenUserId = res.data[randomNumber].id;
                                     chosenReceiverId_1 = res.data[randomNumberReciever].id;
                                     // call api to get the users keys:
-                                    return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId))
+                                    return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/getKeys/").concat(chosenUserId))
                                             .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                             var publicAddress_1, privateAddress_1;
                                             return __generator(this, function (_a) {
@@ -86,14 +86,14 @@ var main = function () {
                                                         publicAddress_1 = res.data[0].publicKey;
                                                         privateAddress_1 = res.data[0].privateKey;
                                                         // where the CORE spaghetti code starts:
-                                                        return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenReceiverId_1))
+                                                        return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/getKeys/").concat(chosenReceiverId_1))
                                                                 .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                                 var publicAddressReciever;
                                                                 return __generator(this, function (_a) {
                                                                     switch (_a.label) {
                                                                         case 0:
                                                                             publicAddressReciever = res.data[0].publicKey;
-                                                                            return [4 /*yield*/, axios_1.default.get("http://localhost:8033/balance/".concat(publicAddress_1))
+                                                                            return [4 /*yield*/, axios_1.default.get("".concat(_2.BLOCKCHAIN_API, "/balance/").concat(publicAddress_1))
                                                                                     .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                                                                     var usersBalance, calulatedNumberOfNotes, sendNotesObject, snack;
                                                                                     return __generator(this, function (_a) {
@@ -111,7 +111,7 @@ var main = function () {
                                                                                                     fromAddressPrivateKey: privateAddress_1,
                                                                                                 };
                                                                                                 snack = JSON.stringify(sendNotesObject);
-                                                                                                axios_1.default.post("http://localhost:8033/transaction", {
+                                                                                                axios_1.default.post("".concat(_2.BLOCKCHAIN_API, "/transaction"), {
                                                                                                     obj: snack,
                                                                                                 })
                                                                                                     .then(function (res) {

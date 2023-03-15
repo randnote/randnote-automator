@@ -43,6 +43,7 @@ exports.main = void 0;
 var axios_1 = __importDefault(require("axios"));
 var SHA256 = require("crypto-js/sha256");
 var _1 = require(".");
+var _2 = require(".");
 // PLAN: JUST get random users, select 1, and just mine with that one user.
 var users = [];
 var calculateHash = function (timestamp, previousHash, transactions, nonce) {
@@ -51,7 +52,7 @@ var calculateHash = function (timestamp, previousHash, transactions, nonce) {
 var mineBlock = function (publicAddress) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         // first get the block:
-        axios_1.default.get("http://localhost:8033/mine/".concat(publicAddress, "/0")).then(function (response) { return __awaiter(void 0, void 0, void 0, function () {
+        axios_1.default.get("".concat(_2.BLOCKCHAIN_API, "/mine/").concat(publicAddress, "/0")).then(function (response) { return __awaiter(void 0, void 0, void 0, function () {
             var block, difficulty, hash;
             return __generator(this, function (_a) {
                 switch (_a.label) {
@@ -77,7 +78,7 @@ var mineBlock = function (publicAddress) { return __awaiter(void 0, void 0, void
                         }
                         console.log("BLOCK MINED: " + block["hash"]); // just displays the hash string
                         // now send to the server:
-                        axios_1.default.get("http://localhost:8033/mine/".concat(publicAddress, "/").concat(hash)).then(function (response) {
+                        axios_1.default.get("".concat(_2.BLOCKCHAIN_API, "/mine/").concat(publicAddress, "/").concat(hash)).then(function (response) {
                             console.log(response.data);
                         });
                         return [2 /*return*/];
@@ -93,7 +94,7 @@ var main = function () {
     var getUsers = function () { return __awaiter(void 0, void 0, void 0, function () {
         return __generator(this, function (_a) {
             switch (_a.label) {
-                case 0: return [4 /*yield*/, axios_1.default.get("http://localhost:8024/userfindAutoGens")
+                case 0: return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/userfindAutoGens"))
                         .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                         var randomNumber, chosenUserId, chosenUserBalance;
                         return __generator(this, function (_a) {
@@ -105,7 +106,7 @@ var main = function () {
                                     chosenUserBalance = res.data[randomNumber].balance;
                                     console.log(chosenUserId);
                                     // call api to get the users keys:
-                                    return [4 /*yield*/, axios_1.default.get("http://localhost:8024/getKeys/".concat(chosenUserId))
+                                    return [4 /*yield*/, axios_1.default.get("".concat(_2.BACKEND_API, "/getKeys/").concat(chosenUserId))
                                             .then(function (res) { return __awaiter(void 0, void 0, void 0, function () {
                                             var publicAddress;
                                             return __generator(this, function (_a) {
