@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "start": "tsc && cd ./dist && NODE_ENV=production node ./index.js",
-    "dev": "tsc && cd ./dist && NODE_ENV=development node ./index.js",
+    "dev": "tsc && cd ./dist && nodemon -L  ./index.js",
     "build": "tsc",
     "prepare": "npm run build",
     "prettier": "cd ./src && prettier --use-tabs --tab-width 4 --write ."
@@ -29,7 +29,9 @@
     "pre-commit": "^1.2.2",
     "prettier": "^2.4.1",
     "socket.io-client": "^4.6.1",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "typescript": "latest",
+    "nodemon": "latest"
   },
   "devDependencies": {
     "@types/node": "^16.10.2",

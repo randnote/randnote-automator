@@ -18,6 +18,11 @@ let GLOBAL_NUMBER_OF_USERS = 49;
 let BLOCKCHAIN_API: string = "";
 let FRONTEND_API: string = "";
 let BACKEND_API: string = "";
+
+
+process.env.NODE_ENV = "development"
+
+
 if (process.env.NODE_ENV == "development") {
 	BLOCKCHAIN_API = "http://localhost:8034";
 	FRONTEND_API = "http://localhost:3002";
@@ -52,7 +57,7 @@ const main = () => {
 };
 
 main();
-// generateRandomUsersAndStoreInDatabase();
+generateRandomUsersAndStoreInDatabase();
 
 export { BLOCKCHAIN_API, FRONTEND_API, BACKEND_API };
 export { PeopleArray, GLOBAL_NUMBER_OF_USERS };

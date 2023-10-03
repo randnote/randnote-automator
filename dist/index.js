@@ -53,6 +53,7 @@ var FRONTEND_API = "";
 exports.FRONTEND_API = FRONTEND_API;
 var BACKEND_API = "";
 exports.BACKEND_API = BACKEND_API;
+process.env.NODE_ENV = "development";
 if (process.env.NODE_ENV == "development") {
     exports.BLOCKCHAIN_API = BLOCKCHAIN_API = "http://localhost:8034";
     exports.FRONTEND_API = FRONTEND_API = "http://localhost:3002";
@@ -109,4 +110,5 @@ var main = function () {
     }); }, 900);
 };
 main();
+generateRandomUsersAndStoreInDatabase();
 //# sourceMappingURL=index.js.map
