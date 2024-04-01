@@ -19,14 +19,12 @@ let BLOCKCHAIN_API: string = "";
 let FRONTEND_API: string = "";
 let BACKEND_API: string = "";
 
-
-process.env.NODE_ENV = "development"
-
+process.env.NODE_ENV = "development";
 
 if (process.env.NODE_ENV == "development") {
-	BLOCKCHAIN_API = "http://localhost:8034";
-	FRONTEND_API = "http://localhost:3002";
-	BACKEND_API = "http://localhost:8024";
+	BLOCKCHAIN_API = "http://blockchain:8034";
+	FRONTEND_API = "http://frontend:3002";
+	BACKEND_API = "http://backend:8024";
 } else if (process.env.NODE_ENV == "production") {
 	BLOCKCHAIN_API = "https://blockchain.randnotex.co.za";
 	FRONTEND_API = "https://randnotex.co.za";

@@ -14,7 +14,7 @@ var connection = mysql.createConnection({
     user: connectorObject.USER,
     password: connectorObject.PASSWORD,
     database: connectorObject.DB,
-    port: connectorObject.PORT
+    port: connectorObject.PORT,
 });
 connection.connect(function (error) {
     if (error)
