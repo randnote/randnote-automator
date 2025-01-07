@@ -26,15 +26,15 @@
     "crypto-js": "^4.0.0",
     "elliptic": "^6.5.4",
     "mysql": "^2.18.1",
+    "nodemon": "latest",
     "pre-commit": "^1.2.2",
     "prettier": "^2.4.1",
     "socket.io-client": "^4.6.1",
-    "yarn": "^1.22.19",
     "typescript": "latest",
-    "nodemon": "latest"
+    "yarn": "^1.22.19"
   },
   "devDependencies": {
-    "@types/node": "^16.10.2",
+    "@types/node": "18",
     "axios": "^1.1.3"
   }
 }
